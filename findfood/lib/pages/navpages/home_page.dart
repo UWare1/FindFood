@@ -1,3 +1,4 @@
+import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         //menu text
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         ),
         //discover text
         Container(
-          margin: const EdgeInsets.only(left: 20),
+          margin: EdgeInsets.only(left: getProportionateScreenWidth(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,12 +63,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(10)),
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      width: double.infinity,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(10)),
+                      width: SizeConfig.screenWidth,
                       height: 50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
@@ -76,17 +80,17 @@ class _HomePageState extends State<HomePage> {
                         onChanged: (value) {
                           //search value
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             hintText: "Search Food",
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: const Icon(Icons.search),
                             prefixIconColor: Colors.black54,
                             contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
+                              horizontal: getProportionateScreenWidth(20),
+                              vertical: getProportionateScreenWidth(12),
                             )),
                       ),
                     )
