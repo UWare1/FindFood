@@ -24,8 +24,10 @@ class FavouritePage extends StatelessWidget {
           child: ListTile(
             title: Text(favfood.title),
             leading: Image.network(favfood.imageUrl),
+            trailing: Icon(Icons.vertical_distribute_rounded),
           ),
         );
+        
       })
       );
       /*body: Co(crossAxisAlignment: CrossAxisAlignment.start,children: [
