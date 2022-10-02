@@ -1,3 +1,4 @@
+import 'package:findfood/components/menu.dart';
 import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
@@ -5,6 +6,13 @@ import 'package:findfood/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+
+/*class MenuInfo {
+  final List photoFoods;
+  final List nameFoods;
+
+  const MenuInfo(this.photoFoods, this.nameFoods);
+}*/
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,8 +66,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppLargeText(text: "Discover"),
-              AppText(text: "Youth Mountains")
+              AppLargeText(text: "DISCOVER"),
+              AppText(text: "Nutritional Gathered For You")
             ],
           ),
         ),
@@ -71,7 +79,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Align(
             alignment: Alignment.centerLeft,
             child: TabBar(
-              labelPadding: const EdgeInsets.only(left: 30, right: 20),
+              labelPadding: const EdgeInsets.only(left: 40, right: 40),
               controller: _tabController,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey.withOpacity(0.8),
@@ -111,112 +119,122 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 itemCount: 3,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin:
-                        const EdgeInsets.only(top: 30, bottom: 15, right: 15),
-                    width: 230,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.redAccent,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 6,
-                          offset: Offset(4, 8), // Shadow position
-                        ),
-                      ],
-                      /*image: DecorationImage(
-                            image: AssetImage("assets/images/mountain.jpeg"),
-                            fit: BoxFit.cover)*/
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        //Plate of Food
-                        Container(
-                          width: double.maxFinite,
-                          height: 180,
-                          margin: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/" + photoFoods[index]),
-                                  fit: BoxFit.scaleDown)),
-                        ),
-                        //Food Name
-                        Container(
-                          width: double.maxFinite,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(20)),
-                          child: AppLargeText(
-                            text: nameFoods[index],
-                            size: 20,
-                            color: Colors.white,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MenuFood(
+                                    nameFoods: "Fried Rice",
+                                  )));
+                    },
+                    child: Container(
+                      margin:
+                          const EdgeInsets.only(top: 30, bottom: 15, right: 15),
+                      width: 230,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.redAccent,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromARGB(66, 255, 40, 40),
+                            blurRadius: 6,
+                            offset: Offset(4, 8), // Shadow position
                           ),
-                        ),
-                        //Star
-                        Container(
-                          width: double.maxFinite,
-                          height: 20,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(20),
-                              vertical: getProportionateScreenWidth(10)),
-                          decoration: BoxDecoration(color: Colors.lightBlue),
-                        ),
-                        //Count & Serve
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 80,
-                              height: 20,
-                              margin: EdgeInsets.only(
-                                  left: getProportionateScreenWidth(20)),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 255, 236, 206)),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: double.maxFinite,
-                                    width: 30,
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/mountain.jpeg"),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                  Text("30 min")
-                                ],
-                              ),
+                        ],
+                        /*image: DecorationImage(
+                              image: AssetImage("assets/images/mountain.jpeg"),
+                              fit: BoxFit.cover)*/
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //Plate of Food
+                          Container(
+                            width: double.maxFinite,
+                            height: 180,
+                            margin: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/" + photoFoods[index]),
+                                    fit: BoxFit.scaleDown)),
+                          ),
+                          //Food Name
+                          Container(
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(20)),
+                            child: AppLargeText(
+                              text: nameFoods[index],
+                              size: 20,
+                              color: Colors.white,
                             ),
-                            Container(
-                              width: 90,
-                              height: 20,
-                              margin: EdgeInsets.only(
-                                  right: getProportionateScreenWidth(20)),
-                              decoration:
-                                  BoxDecoration(color: Colors.lightGreen),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: double.maxFinite,
-                                    width: 30,
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/mountain.jpeg"),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                  Text("2 serve")
-                                ],
+                          ),
+                          //Star
+                          Container(
+                            width: double.maxFinite,
+                            height: 20,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(20),
+                                vertical: getProportionateScreenWidth(10)),
+                            decoration: BoxDecoration(color: Colors.lightBlue),
+                          ),
+                          //Count & Serve
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 80,
+                                height: 20,
+                                margin: EdgeInsets.only(
+                                    left: getProportionateScreenWidth(20)),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 236, 206)),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: double.maxFinite,
+                                      width: 30,
+                                      margin: const EdgeInsets.only(right: 6),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/mountain.jpeg"),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    Text("30 min")
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                              Container(
+                                width: 90,
+                                height: 20,
+                                margin: EdgeInsets.only(
+                                    right: getProportionateScreenWidth(20)),
+                                decoration:
+                                    BoxDecoration(color: Colors.lightGreen),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: double.maxFinite,
+                                      width: 30,
+                                      margin: const EdgeInsets.only(right: 6),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/mountain.jpeg"),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    Text("2 serve")
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -259,108 +277,118 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             itemCount: 3,
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                width: double.maxFinite,
-                height: 140,
-                margin: EdgeInsets.only(
-                    top: 8,
-                    left: getProportionateScreenWidth(20),
-                    right: getProportionateScreenWidth(20),
-                    bottom: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.orangeAccent,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 20,
-                      offset: Offset(4, 8), // Shadow position
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 80,
-                      margin: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/healthy-meat.png"))),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppLargeText(
-                          text: "Healthy Meat",
-                          size: 20,
-                          color: Colors.white,
-                        ),
-                        //Star in Recommended
-                        Container(
-                          width: 200,
-                          height: 20,
-                          margin: EdgeInsets.symmetric(
-                              vertical: getProportionateScreenWidth(4)),
-                          color: Colors.redAccent,
-                        ),
-                        //Count & Serve in Recommended
-                        Row(
-                          children: [
-                            Container(
-                              width: 90,
-                              height: 20,
-                              margin: EdgeInsets.only(
-                                  right: getProportionateScreenWidth(10)),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 255, 236, 206)),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: double.maxFinite,
-                                    width: 30,
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/mountain.jpeg"),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                  Text("30 min")
-                                ],
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MenuFood(
+                                nameFoods: "Fried Rice",
+                              )));
+                },
+                child: Container(
+                  width: double.maxFinite,
+                  height: 140,
+                  margin: EdgeInsets.only(
+                      top: 8,
+                      left: getProportionateScreenWidth(20),
+                      right: getProportionateScreenWidth(20),
+                      bottom: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.orangeAccent,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(31, 255, 164, 84),
+                        blurRadius: 20,
+                        offset: Offset(4, 8), // Shadow position
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 80,
+                        width: 80,
+                        margin: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/healthy-meat.png"))),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppLargeText(
+                            text: "Healthy Meat",
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                          //Star in Recommended
+                          Container(
+                            width: 200,
+                            height: 20,
+                            margin: EdgeInsets.symmetric(
+                                vertical: getProportionateScreenWidth(4)),
+                            color: Colors.redAccent,
+                          ),
+                          //Count & Serve in Recommended
+                          Row(
+                            children: [
+                              Container(
+                                width: 90,
+                                height: 20,
+                                margin: EdgeInsets.only(
+                                    right: getProportionateScreenWidth(10)),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 236, 206)),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: double.maxFinite,
+                                      width: 30,
+                                      margin: const EdgeInsets.only(right: 6),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/mountain.jpeg"),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    Text("30 min")
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 90,
-                              height: 20,
-                              decoration:
-                                  BoxDecoration(color: Colors.lightGreen),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: double.maxFinite,
-                                    width: 30,
-                                    margin: const EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/mountain.jpeg"),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                  Text("2 serve")
-                                ],
+                              Container(
+                                width: 90,
+                                height: 20,
+                                decoration:
+                                    BoxDecoration(color: Colors.lightGreen),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: double.maxFinite,
+                                      width: 30,
+                                      margin: const EdgeInsets.only(right: 6),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/mountain.jpeg"),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    Text("2 serve")
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
