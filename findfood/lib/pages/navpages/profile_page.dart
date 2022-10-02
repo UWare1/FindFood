@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: size.width * .3,
                   child: Row(
                     children: [
-                      Text('Smith Shader',style: TextStyle(
+                      Text('Smith Sha',style: TextStyle(
                         color: Colors.black54,
                         fontSize: 20, 
                       ),

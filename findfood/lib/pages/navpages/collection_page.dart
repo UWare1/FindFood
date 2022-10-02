@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+
 class CollectionPage extends StatefulWidget {
   const CollectionPage({super.key});
 
@@ -18,11 +19,12 @@ class _CollectionPageState extends State<CollectionPage> with TickerProviderStat
     "healthy-meat.png",
     "salad-with-meat.png"
   ];
-  List nameFoods = ["fried-rice.png","healthy-meat.png","Salad With Meat"];
+  List nameFoods = ["fried-rice","healthy-meat","Salad With Meat"];
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(    
       body: SingleChildScrollView(
         child: Center(
             child: Column(
@@ -87,8 +89,8 @@ class _CollectionPageState extends State<CollectionPage> with TickerProviderStat
               children: <Widget>[Container(
                 margin: EdgeInsets.symmetric(vertical:  16.0, horizontal: 16.0),
                 padding: const EdgeInsets.only(left: (30)),
-                height: 200,
-                width: SizeConfig.screenWidth/3,
+                height: 250,
+                width: 900/3,
                 decoration: BoxDecoration(
                   color:Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -103,25 +105,25 @@ class _CollectionPageState extends State<CollectionPage> with TickerProviderStat
                 child: Column(
                   children: <Widget>[
                       Container(
-                        padding: EdgeInsets.all(25),
-                         /*decoration: BoxDecoration(
+                        padding: EdgeInsets.all(0),
+                         decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
+                              //color: Colors.amber,
                               image: DecorationImage(
-                                 image: AssetImage("assets/images/"+photoFoods[IndexedSemantics]),
-                                  fit: BoxFit.scaleDown
+                                 image: AssetImage(
+                                   "assests/images/fried-rice.png"),
+                                   scale: 0.2
+                
                               )
-                            )*/
-                        /*decoration: BoxDecoration(
-                          color: kCupertinoModalBarrierColor.withOpacity(0.13),
-                          shape: BoxShape.circle,
-                        ),*/
-                      ),
+                            )
+                      )    
                   ],
                 ), 
               )],
               )
           ],
         )),
+      ),
       ),
     );
   }
