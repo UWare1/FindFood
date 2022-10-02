@@ -1,3 +1,4 @@
+// ignore_for_file: unused_label, prefer_const_constructors
 
 import 'package:findfood/data/favfood.dart';
 import 'package:findfood/size_config.dart';
@@ -8,29 +9,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-
-
 class FavouritePage extends StatelessWidget {
-  const FavouritePage({super.key}); 
+  const FavouritePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('FavouriteFood'),
-      ),
-      body: ListView.builder(itemCount: favfoodlist.length, itemBuilder: (context, index) {
-        FavFood favfood = favfoodlist[index];
-        return Card(
-          child: ListTile(
-            title: Text(favfood.title),
-            leading: Image.network(favfood.imageUrl),
-            trailing: Icon(Icons.vertical_distribute_rounded),
-          ),
-        );
-        
-      })
-      );
-      /*body: Co(crossAxisAlignment: CrossAxisAlignment.start,children: [
+        appBar: AppBar(
+          title: Text('FavouriteFood'),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.search_rounded),
+                onPressed: () {
+                  showSearch(context: context, delegate: CustomSearch());
+                })
+          ],
+        ),
+        body: ListView.builder(
+            itemCount: favfoodlist.length,
+            itemBuilder: (context, index) {
+              FavFood favfood = favfoodlist[index];
+              return Card(
+                child: ListTile(
+                  title: Text(favfood.title),
+                  leading: Image.network(favfood.imageUrl),
+                  trailing: Icon(Icons.vertical_distribute_rounded),
+                ),
+              );
+            }));
+    /*body: Co(crossAxisAlignment: CrossAxisAlignment.start,children: [
          //menu text
         Container(
           padding: const EdgeInsets.only(top: 70, left: 20),
@@ -92,5 +98,65 @@ class FavouritePage extends StatelessWidget {
               ),
             ),
       ],),*/
+  }
+}
+
+class CustomSearch extends SearchDelegate {
+  List<String> allData = ['Chicken Ramen', 'Veg Pizza','Salad','Fried-fish with rice','Pescado Soup','Indian Omelette','Yello Curry','Chicken fire rice','Kimchi fried rice','Green Curry'];
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        });
   }
 }
