@@ -1,3 +1,4 @@
+import 'package:findfood/pages/navpages/main_page.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
 import 'package:findfood/widgets/responsive_button.dart';
@@ -72,8 +73,18 @@ class _WelcomePageState extends State<WelcomePage> {
                         SizedBox(
                           height: 40,
                         ),
-                        ResponsiveButton(
-                          width: 120,
+                        GestureDetector(
+                          onTap: () {
+                            if (index == 2) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPage()));
+                            }
+                          },
+                          child: ResponsiveButton(
+                            width: 120,
+                          ),
                         )
                       ],
                     ),
