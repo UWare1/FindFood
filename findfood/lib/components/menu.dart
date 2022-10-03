@@ -252,6 +252,7 @@ class _MenuFood extends State<MenuFood> {
             height: 20,
           ),
           GestureDetector(
+            onTap: () {
               AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
               Navigator.push(
                   context,
