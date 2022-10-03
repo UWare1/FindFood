@@ -1,8 +1,11 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:findfood/components/restaurant.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:like_button/like_button.dart';
 
 import '../size_config.dart';
 
@@ -18,6 +21,8 @@ class _MenuFood extends State<MenuFood> {
   String nameFoods;
   _MenuFood(this.nameFoods);
 
+  bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -31,6 +36,7 @@ class _MenuFood extends State<MenuFood> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
                     Navigator.pop(context);
                   },
                   child: Icon(
@@ -40,13 +46,17 @@ class _MenuFood extends State<MenuFood> {
                   ),
                 ),
                 Expanded(child: Container()),
-                Container(
+                /*Container(
                   width: 30,
                   height: 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       color: Colors.grey.withOpacity(0.5)),
-                ),
+                ),*/
+                LikeButton(
+                  onTap: onLikeButtonTapped,
+                  isLiked: isLiked,
+                )
               ],
             ),
           ),
@@ -241,24 +251,42 @@ class _MenuFood extends State<MenuFood> {
           SizedBox(
             height: 20,
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            width: double.maxFinite,
-            height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: Colors.amber),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppLargeText(
-                  text: "FIND THEM!",
-                  size: 18,
-                )
-              ],
+          GestureDetector(
+              AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RestaurantPage()));
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              width: double.maxFinite,
+              height: 40,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4), color: Colors.amber),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppLargeText(
+                    text: "FIND THEM!",
+                    size: 18,
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
+}
+
+Future<bool> onLikeButtonTapped(bool isLiked) async {
+  /// send your request here
+  // final bool success= await sendRequest();
+
+  /// if failed, you can do nothing
+  // return success? !isLiked:isLiked;
+  AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+  return !isLiked;
 }
