@@ -12,10 +12,13 @@ class FavFood{
 
 List<FavFood> favfoodlist = [
   FavFood(
+    title: 'Salmon Salad', 
+    imageUrl: 'https://www.nicepng.com/png/detail/54-546030_food-top-view-png-jpg-black-and-white.png',
+    ),
+  FavFood(
     title: 'Grilled Chicken Steak with Tomato',
     imageUrl:'https://www.kindpng.com/picc/m/242-2422753_transparent-food-plate-png-food-on-plate-top.png',
-    //Icon(Icons.delete_sweep_outlined),
-  ),
+    ),
   FavFood(
     title: 'Chicken Ramen', 
     imageUrl: 'https://www.kindpng.com/picc/m/64-644207_transparent-chinese-food-box-png-chicken-ramen-wagamama.png',

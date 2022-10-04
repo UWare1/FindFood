@@ -3,7 +3,6 @@
 import 'package:findfood/data/favfood.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
-import 'package:findfood/widgets/recent_favourite_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -15,7 +14,15 @@ class FavouritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.yellowAccent[700],
+          elevation: 0,
+           leading:Icon(
+                Icons.menu,
+                size: 30,
+                color: Colors.black54,
+              ),
           title: Text('FavouriteFood'),
+          centerTitle: true,
           actions: [
             IconButton(
                 icon: const Icon(Icons.search_rounded),
@@ -102,7 +109,7 @@ class FavouritePage extends StatelessWidget {
 }
 
 class CustomSearch extends SearchDelegate {
-  List<String> allData = ['Chicken Ramen', 'Veg Pizza','Salad','Fried-fish with rice','Pescado Soup','Indian Omelette','Yello Curry','Chicken fire rice','Kimchi fried rice','Green Curry'];
+  List<String> allData = ['Salmon Salad','Chicken Ramen', 'Veg Pizza','Salad','Fried-fish with rice','Pescado Soup','Indian Omelette','Yello Curry','Chicken fire rice','Kimchi fried rice','Green Curry'];
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
