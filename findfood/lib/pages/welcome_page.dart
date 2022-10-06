@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/pages/navpages/main_page.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
@@ -16,6 +17,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  PageController pageController = PageController(initialPage: 0);
   List images = [
     "welcome-one.png",
     "welcome-two.png",
@@ -41,6 +43,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
+          controller: pageController,
           scrollDirection: Axis.vertical,
           itemCount: images.length,
           itemBuilder: (_, index) {
@@ -75,6 +78,11 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            AudioPlayer()
+                                .play(AssetSource('audio/click_tone.mp3'));
+                            pageController.animateToPage(index + 1,
+                                duration: Duration(milliseconds: 400),
+                                curve: Curves.linear);
                             if (index == 2) {
                               Navigator.push(
                                   context,
