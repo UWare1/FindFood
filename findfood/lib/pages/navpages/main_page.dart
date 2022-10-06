@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/pages/navpages/favourite_page.dart';
 import 'package:findfood/pages/navpages/spinner_page.dart';
 import 'package:findfood/pages/navpages/home_page.dart';
@@ -23,7 +22,6 @@ class _MainPageState extends State<MainPage> {
   ];
   int currentIndex = 0;
   void onTap(int index) {
-    AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
     setState(() {
       currentIndex = index;
     });
