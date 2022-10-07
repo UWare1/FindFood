@@ -52,10 +52,15 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   text: "Fried Rice",
                   color: Colors.black87,
                 ),
-                Icon(
-                  Icons.line_weight_rounded,
-                  size: 30,
-                  color: Colors.black54,
+                GestureDetector(
+                  onTap: () {
+                    AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                  },
+                  child: Icon(
+                    Icons.filter_list_rounded,
+                    size: 30,
+                    color: Colors.black54,
+                  ),
                 ),
               ],
             ),

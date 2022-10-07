@@ -17,7 +17,11 @@ class ResponsiveButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10), color: AppColors.mainColor),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Image.asset("assets/images/button-one.png")],
+        children: [
+          Image.asset(
+            "assets/images/button-one.png",
+          )
+        ],
       ),
     );
   }
