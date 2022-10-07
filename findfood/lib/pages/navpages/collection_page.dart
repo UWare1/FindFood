@@ -1,4 +1,4 @@
-
+import 'package:findfood/constants.dart';
 import 'package:findfood/data/food.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
@@ -7,8 +7,103 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+class CollectionPage extends StatefulWidget {
+  const CollectionPage({super.key});
 
-class CollectionPage extends StatelessWidget {
+  @override
+  State<CollectionPage> createState() => _CollectionPage();
+}
+
+class _CollectionPage extends State<CollectionPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu),
+            color: Colors.black54,
+          ),
+          title: const Text(
+            'Collection Food',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        //body
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: Colors.black54.withOpacity(0.32),
+                  ),
+                ),
+                child: TextField(
+                  maxLines: 1,
+                  onChanged: (value) {
+                    //search value
+                  },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    icon: Icon(Icons.search),
+                    hintText: "Search Food",
+                    hintStyle:
+                        TextStyle(color: Colors.black54.withOpacity(0.32)),
+                  ),
+                ),
+              ),
+              Container(
+                //padding: EdgeInsets.all(kDefaultPaddin),
+                height: 180,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Colors.amber[200],
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Image.asset(Foods[0].image),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin/ 4),
+                child: Text(
+                  Foods[0].name,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              Container(
+                //padding: EdgeInsets.all(kDefaultPaddin),
+                height: 180,
+                width: 160,
+                decoration: BoxDecoration(
+                  color: Colors.amber[200],
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Image.asset(Foods[0].image),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin/ 4),
+                child: Text(
+                  Foods[0].name,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ]
+          )
+        );
+  }
+}
+
+//เกือบดี
+/*class CollectionPage extends StatelessWidget {
   const CollectionPage({super.key});
 
   @override
@@ -32,6 +127,7 @@ class CollectionPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             margin: EdgeInsets.all(20),
@@ -65,15 +161,18 @@ class CollectionPage extends StatelessWidget {
             ),
             child: Image.asset(Foods[0].image),
           ),
-          Text(
-            Foods[0].name,
-            style: TextStyle(color: Colors.black),
-            )
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0/4),
+            child: Text(
+              Foods[0].name,
+              style: TextStyle(color: Colors.black),
+            ),
+          )
         ],
       ), 
-      
     );
-  }
+  }*/
+
 
 /*class CollectionPage extends StatefulWidget {
   const CollectionPage({super.key});
@@ -196,4 +295,4 @@ class _CollectionPageState extends State<CollectionPage> with TickerProviderStat
       ),
     );
   }*/
-}
+

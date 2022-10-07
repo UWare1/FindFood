@@ -1,5 +1,4 @@
 // ignore_for_file: unused_label, prefer_const_constructors
-
 import 'package:findfood/data/favfood.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
@@ -7,9 +6,89 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
-class FavouritePage extends StatelessWidget {
+class FavouritePage extends StatefulWidget {
   const FavouritePage({super.key});
+
+  @override
+  State<FavouritePage> createState() => _FavouritePage();
+}
+
+class _FavouritePage extends State<FavouritePage> {
+  final itemList = [
+    {
+      'image': 'assets/images/favfood/pizza.png',
+      'title': 'Pizza',
+    },
+    {
+      'image': 'assets/images/favfood/Salad.png',
+      'title': 'Salad',
+    },
+    {
+      'image': 'assets/images/favfood/Ramen.png',
+      'title': 'Ramen',
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orange[300],
+          elevation: 0,
+          leading: Icon(
+            Icons.menu,
+            size: 30,
+            color: Colors.black54,
+          ),
+          title: Text('FavouriteFood'),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.search_rounded),
+                onPressed: () {
+                  showSearch(context: context, delegate: CustomSearch());
+                })
+          ],
+        ),
+        body: ListView.builder(
+            itemCount: favfoodlist.length,
+            itemBuilder: (context, index) {
+              FavFood favfood = favfoodlist[index];
+              return Slidable(
+                key: Key('$favfood'),
+                endActionPane: ActionPane(
+                  motion: const ScrollMotion(), 
+                  children: [
+                    SlidableAction(onPressed: (context){
+                      setState(() {
+                        favfoodlist.removeAt(index); 
+                      });
+                    },
+                      backgroundColor: Colors.red,
+                      icon: Icons.delete,
+                    ),
+                  ]),
+                child: Card(
+                  child: ListTile(
+                    title: Text(favfood.title),
+                    leading: Image.network(favfood.imageUrl),
+                    //trailing: Icon(Icons.delete),
+                  ),
+                ),
+              );
+            }));
+  }
+}
+
+/*class FavouritePage extends StatefulWidget {
+  const FavouritePage({super.key});
+
+  @override
+  State<FavouritePage> createState() => _FavouritePage();
+}
+
+class _FavouritePage extends State<FavouritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +118,15 @@ class FavouritePage extends StatelessWidget {
                 child: ListTile(
                   title: Text(favfood.title),
                   leading: Image.network(favfood.imageUrl),
-                  trailing: Icon(Icons.vertical_distribute_rounded),
+                  trailing: Icon(Icons.delete),
                 ),
               );
-            }));
-    /*body: Co(crossAxisAlignment: CrossAxisAlignment.start,children: [
+            }
+            )
+          );       
+  }
+}*/
+/*body: Co(crossAxisAlignment: CrossAxisAlignment.start,children: [
          //menu text
         Container(
           padding: const EdgeInsets.only(top: 70, left: 20),
@@ -105,11 +188,21 @@ class FavouritePage extends StatelessWidget {
               ),
             ),
       ],),*/
-  }
-}
 
 class CustomSearch extends SearchDelegate {
-  List<String> allData = ['Salmon Salad','Chicken Ramen', 'Veg Pizza','Salad','Fried-fish with rice','Pescado Soup','Indian Omelette','Yello Curry','Chicken fire rice','Kimchi fried rice','Green Curry'];
+  List<String> allData = [
+    'Salmon Salad',
+    'Chicken Ramen',
+    'Veg Pizza',
+    'Salad',
+    'Fried-fish with rice',
+    'Pescado Soup',
+    'Indian Omelette',
+    'Yello Curry',
+    'Chicken fire rice',
+    'Kimchi fried rice',
+    'Green Curry'
+  ];
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
