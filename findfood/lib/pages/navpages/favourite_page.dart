@@ -37,7 +37,7 @@ class _FavouritePage extends State<FavouritePage> {
           backgroundColor: Colors.orange[300],
           elevation: 0,
           leading: Icon(
-            Icons.menu,
+            Icons.arrow_back,
             size: 30,
             color: Colors.black54,
           ),
