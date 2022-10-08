@@ -110,12 +110,12 @@ class _MenuFood extends State<MenuFood> {
                                 image: AssetImage("assets/images/calories.png"),
                                 fit: BoxFit.scaleDown)),
                       ),
-                      AppText(text: "180 kCals")
+                      AppText(text: "180 kcals")
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Icon(
                     Icons.more_vert_rounded,
                     size: 26,
@@ -148,7 +148,7 @@ class _MenuFood extends State<MenuFood> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
                   child: Icon(
                     Icons.more_vert_rounded,
                     size: 26,

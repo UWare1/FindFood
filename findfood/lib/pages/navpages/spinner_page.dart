@@ -108,6 +108,9 @@ class _SpinnerPageState extends State<SpinnerPage> {
                             duration: Duration(seconds: 1),
                             curve: Curves.decelerate),
                         onFling: () {
+                          AudioPlayer().play(
+                            AssetSource('audio/spinner_tone.mp3'),
+                          );
                           setState(() {
                             selected.add(Fortune.randomInt(0, items.length));
                           });

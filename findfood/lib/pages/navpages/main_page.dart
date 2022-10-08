@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/pages/navpages/favourite_page.dart';
 import 'package:findfood/pages/navpages/spinner_page.dart';
 import 'package:findfood/pages/navpages/home_page.dart';
@@ -40,7 +41,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.white,
         onTap: onTap,
         currentIndex: currentIndex,
-        selectedItemColor: Colors.orangeAccent,
+        selectedItemColor: AppColors.mainColor,
         unselectedItemColor: Colors.grey.withOpacity(0.5),
         showSelectedLabels: false,
         showUnselectedLabels: false,

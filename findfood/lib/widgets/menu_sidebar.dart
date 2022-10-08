@@ -1,3 +1,5 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:findfood/pages/navpages/main_page.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
@@ -28,8 +30,11 @@ class MenuSideBar extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(80),
-                      color: Colors.grey.withOpacity(0.5)),
+                      color: Color.fromARGB(255, 255, 195, 215),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/iconprofile.png"),
+                          fit: BoxFit.cover)),
                 ),
                 AppLargeText(
                   text: "Yutthana",
@@ -62,67 +67,139 @@ class MenuSideBar extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.auto_graph_rounded,
-                  size: 26,
-                ),
-                SizedBox(width: 10),
-                Text("Statistics",
-                    style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: 22,
-                    )),
-              ],
+            GestureDetector(
+              onTap: () {
+                AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                var snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Coming Soon!',
+                    message:
+                        'This feature is not yet available, please be patient!',
+                    contentType: ContentType.warning,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.auto_graph_rounded,
+                    size: 26,
+                  ),
+                  SizedBox(width: 10),
+                  Text("Statistics",
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 22,
+                      )),
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Icon(Icons.nature),
-                SizedBox(width: 10),
-                Text("Nutritional",
-                    style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: 22,
-                    )),
-              ],
+            GestureDetector(
+              onTap: () {
+                AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                var snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Coming Soon!',
+                    message:
+                        'This feature is not yet available, please be patient!',
+                    contentType: ContentType.warning,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.nature),
+                  SizedBox(width: 10),
+                  Text("Nutritional",
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 22,
+                      )),
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.bento_rounded,
-                  size: 26,
-                ),
-                SizedBox(width: 10),
-                Text("Ingredients",
-                    style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: 22,
-                    )),
-              ],
+            GestureDetector(
+              onTap: () {
+                AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                var snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Coming Soon!',
+                    message:
+                        'This feature is not yet available, please be patient!',
+                    contentType: ContentType.warning,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.bento_rounded,
+                    size: 26,
+                  ),
+                  SizedBox(width: 10),
+                  Text("Ingredients",
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 22,
+                      )),
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.bookmark_add_rounded,
-                  size: 26,
-                ),
-                SizedBox(width: 10),
-                Text("Blacklists",
-                    style: TextStyle(
-                      color: Colors.black38,
-                      fontSize: 22,
-                    )),
-              ],
+            GestureDetector(
+              onTap: () {
+                AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                var snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Coming Soon!',
+                    message:
+                        'This feature is not yet available, please be patient!',
+                    contentType: ContentType.warning,
+                  ),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.bookmark_add_rounded,
+                    size: 26,
+                  ),
+                  SizedBox(width: 10),
+                  Text("Blacklists",
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 22,
+                      )),
+                ],
+              ),
             ),
           ],
         ),
