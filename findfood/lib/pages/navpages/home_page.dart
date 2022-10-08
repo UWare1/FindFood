@@ -4,10 +4,12 @@ import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
+import 'package:findfood/widgets/count_and_serve.dart';
 import 'package:findfood/widgets/menu_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 /*class MenuInfo {
   final List photoFoods;
@@ -25,12 +27,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool isCollapsed = true;
+  late AnimationController _animationController;
   List photoFoods = [
     "fried-rice.png",
     "healthy-meat.png",
     "salad-with-meat.png"
   ];
   List nameFoods = ["Fried Rice", "Healthy Meat", "Salad With Meat"];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+  }
+
+  void menuChangeTapped() {
+    if (isCollapsed == true) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +80,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        menuChangeTapped();
                         AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
                         setState(() {
                           isCollapsed = !isCollapsed;
                         });
                       },
-                      child: Icon(
-                        Icons.menu,
-                        size: 30,
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        progress: _animationController,
+                        size: 36,
                         color: Colors.black54,
                       ),
                     ),
@@ -76,9 +98,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       margin: const EdgeInsets.only(right: 20),
                       width: 50,
                       height: 50,
+                      // decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     color: Colors.grey.withOpacity(0.5)),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.withOpacity(0.5)),
+                          image: DecorationImage(
+                        image: AssetImage("assets/images/iconprofile.png"),
+                      )),
                     ),
                   ],
                 ),
@@ -206,74 +232,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 ),
                                 //Star
                                 Container(
-                                  width: double.maxFinite,
-                                  height: 20,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal:
-                                          getProportionateScreenWidth(20),
-                                      vertical:
-                                          getProportionateScreenWidth(10)),
-                                  decoration:
-                                      BoxDecoration(color: Colors.lightBlue),
-                                ),
+                                    width: double.maxFinite,
+                                    height: 26,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal:
+                                            getProportionateScreenWidth(17),
+                                        vertical:
+                                            getProportionateScreenWidth(5)),
+                                    child: RatingBarIndicator(
+                                      rating: 3.7,
+                                      itemBuilder: (context, index) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      itemCount: 5,
+                                      itemSize: 26,
+                                      direction: Axis.horizontal,
+                                    )),
                                 //Count & Serve
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 80,
-                                      height: 20,
-                                      margin: EdgeInsets.only(
-                                          left:
-                                              getProportionateScreenWidth(20)),
-                                      decoration: BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 255, 236, 206)),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: double.maxFinite,
-                                            width: 30,
-                                            margin:
-                                                const EdgeInsets.only(right: 6),
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/mountain.jpeg"),
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                          Text("30 min")
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 90,
-                                      height: 20,
-                                      margin: EdgeInsets.only(
-                                          right:
-                                              getProportionateScreenWidth(20)),
-                                      decoration: BoxDecoration(
-                                          color: Colors.lightGreen),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: double.maxFinite,
-                                            width: 30,
-                                            margin:
-                                                const EdgeInsets.only(right: 6),
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/mountain.jpeg"),
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                          Text("2 serve")
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        left: getProportionateScreenWidth(18)),
+                                    child: CountAndServe())
                               ],
                             ),
                           ),
@@ -315,7 +295,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               //Recommended Menu
               Container(
                 width: double.maxFinite,
-                height: SizeConfig.screenHeight * 0.198,
+                height: SizeConfig.screenHeight * 0.179,
+                padding: EdgeInsets.only(bottom: 0),
                 child: ListView.builder(
                   itemCount: 3,
                   scrollDirection: Axis.vertical,
@@ -332,7 +313,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       },
                       child: Container(
                         width: double.maxFinite,
-                        height: 140,
+                        height: 130,
                         margin: EdgeInsets.only(
                             top: 8,
                             left: getProportionateScreenWidth(20),
@@ -340,12 +321,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.orangeAccent,
+                          color: Colors.purpleAccent,
                           boxShadow: [
                             BoxShadow(
-                              color: Color.fromARGB(31, 255, 164, 84),
-                              blurRadius: 20,
-                              offset: Offset(4, 8), // Shadow position
+                              color: Color.fromARGB(255, 240, 158, 255),
+                              blurRadius: 10,
+                              offset: Offset(4, 6), // Shadow position
                             ),
                           ],
                         ),
@@ -378,61 +359,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   height: 20,
                                   margin: EdgeInsets.symmetric(
                                       vertical: getProportionateScreenWidth(4)),
-                                  color: Colors.redAccent,
+                                  child: RatingBarIndicator(
+                                    rating: 4.32,
+                                    itemBuilder: (context, index) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    itemCount: 5,
+                                    itemSize: 26,
+                                    direction: Axis.horizontal,
+                                  ),
                                 ),
                                 //Count & Serve in Recommended
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 90,
-                                      height: 20,
-                                      margin: EdgeInsets.only(
-                                          right:
-                                              getProportionateScreenWidth(10)),
-                                      decoration: BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 255, 236, 206)),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: double.maxFinite,
-                                            width: 30,
-                                            margin:
-                                                const EdgeInsets.only(right: 6),
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/mountain.jpeg"),
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                          Text("30 min")
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 90,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                          color: Colors.lightGreen),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: double.maxFinite,
-                                            width: 30,
-                                            margin:
-                                                const EdgeInsets.only(right: 6),
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/mountain.jpeg"),
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                          Text("2 serve")
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
+                                CountAndServe()
                               ],
                             ),
                           ],
@@ -442,49 +381,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   },
                 ),
               ),
-              //search
-              /*Container(
-                  child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(10)),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: getProportionateScreenWidth(10)),
-                            width: SizeConfig.screenWidth,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.black54.withOpacity(0.2)),
-                            child: TextField(
-                              maxLines: 1,
-                              onChanged: (value) {
-                                //search value
-                              },
-                              decoration: InputDecoration(
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  hintText: "Search Food",
-                                  hintStyle: const TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                  prefixIcon: const Icon(Icons.search),
-                                  prefixIconColor: Colors.black54,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: getProportionateScreenWidth(20),
-                                    vertical: getProportionateScreenWidth(12),
-                                  )),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                          ))*/
             ]),
           ),
         ),
@@ -519,41 +415,3 @@ class _CirclePainter extends BoxPainter {
     canvas.drawCircle(offset + circleOffset, radius, _paint);
   }
 }
-
-/*Widget menu(context) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 16),
-    child: Align(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Dashboard",
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-          SizedBox(
-            height: 10,
-          ),
-          Text("Messages",
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-          SizedBox(
-            height: 10,
-          ),
-          Text("Utility Bills",
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-          SizedBox(
-            height: 10,
-          ),
-          Text("Funds Transfer",
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-          SizedBox(
-            height: 10,
-          ),
-          Text("Branches",
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-        ],
-      ),
-    ),
-  );
-}*/

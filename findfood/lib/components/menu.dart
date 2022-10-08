@@ -46,13 +46,6 @@ class _MenuFood extends State<MenuFood> {
                   ),
                 ),
                 Expanded(child: Container()),
-                /*Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.grey.withOpacity(0.5)),
-                ),*/
                 LikeButton(
                   onTap: onLikeButtonTapped,
                   isLiked: isLiked,
@@ -114,23 +107,20 @@ class _MenuFood extends State<MenuFood> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/fried-rice.png"),
+                                image: AssetImage("assets/images/calories.png"),
                                 fit: BoxFit.scaleDown)),
                       ),
-                      AppText(text: "181 Cals")
+                      AppText(text: "180 kCals")
                     ],
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/button-one.png"),
-                          fit: BoxFit.scaleDown)),
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  child: Icon(
+                    Icons.more_vert_rounded,
+                    size: 26,
+                    color: Colors.black38,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.all(10),
@@ -143,23 +133,27 @@ class _MenuFood extends State<MenuFood> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/fried-rice.png"),
+                                image: AssetImage("assets/images/rice.png"),
                                 fit: BoxFit.scaleDown)),
                       ),
-                      AppText(text: "191 Cals")
+                      // Text(
+                      //   "27 g'",
+                      //   style: TextStyle(
+                      //       fontSize: 13,
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.black54),
+                      // ),
+                      AppText(text: "27 g'")
                     ],
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/button-one.png"),
-                          fit: BoxFit.scaleDown)),
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  child: Icon(
+                    Icons.more_vert_rounded,
+                    size: 26,
+                    color: Colors.black38,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.all(10),
@@ -172,11 +166,10 @@ class _MenuFood extends State<MenuFood> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/fried-rice.png"),
+                                image: AssetImage("assets/images/fish.png"),
                                 fit: BoxFit.scaleDown)),
                       ),
-                      AppText(text: "201 Cals")
+                      AppText(text: "5.9 g'")
                     ],
                   ),
                 ),
@@ -231,17 +224,20 @@ class _MenuFood extends State<MenuFood> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(bottom: 12),
+                        margin: const EdgeInsets.only(bottom: 10),
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
                             image: DecorationImage(
-                                image:
-                                    AssetImage("assets/images/fried-rice.png"),
+                                image: AssetImage(
+                                    "assets/images/ingredients/basil.png"),
                                 fit: BoxFit.scaleDown)),
                       ),
-                      AppText(text: "Data")
+                      AppText(
+                        text: "Basil",
+                        color: Colors.white,
+                      )
                     ],
                   ),
                 );

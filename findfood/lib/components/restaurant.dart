@@ -3,6 +3,7 @@ import 'package:findfood/components/map.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
+import 'package:findfood/widgets/count_and_serve.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -40,14 +41,6 @@ class _RestaurantPageState extends State<RestaurantPage> {
                     color: Colors.black54,
                   ),
                 ),
-                //Expanded(child: Container()),
-                /*Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.grey.withOpacity(0.5)),
-                ),*/
                 AppLargeText(
                   text: "Fried Rice",
                   color: Colors.black87,
@@ -57,7 +50,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                     AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
                   },
                   child: Icon(
-                    Icons.filter_list_rounded,
+                    Icons.filter_alt_rounded,
                     size: 30,
                     color: Colors.black54,
                   ),
@@ -134,55 +127,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                               color: Colors.redAccent,
                             ),
                             //Count & Serve in Recommended
-                            Row(
-                              children: [
-                                Container(
-                                  width: 90,
-                                  height: 20,
-                                  margin: EdgeInsets.only(
-                                      right: getProportionateScreenWidth(10)),
-                                  decoration: BoxDecoration(
-                                      color:
-                                          Color.fromARGB(255, 255, 236, 206)),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: double.maxFinite,
-                                        width: 30,
-                                        margin: const EdgeInsets.only(right: 6),
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/mountain.jpeg"),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      Text("30 min")
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 90,
-                                  height: 20,
-                                  decoration:
-                                      BoxDecoration(color: Colors.lightGreen),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: double.maxFinite,
-                                        width: 30,
-                                        margin: const EdgeInsets.only(right: 6),
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/mountain.jpeg"),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      Text("2 serve")
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )
+                            CountAndServe()
                           ],
                         ),
                       ],
