@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       ),
                       SizedBox(
-                        height: 24.0,
+                        height: 20.0,
                         child: Image.asset("assets/images/verify.png"),
                       )
                     ],
@@ -73,10 +73,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: Colors.black54.withOpacity(.3),
                 ),),
               const SizedBox(
-                height: 30.0,
+                height: 15.0,
               ),
               SizedBox(
-                height: size.height *.7,
+                height: size.height *.2,
                 width: SizeConfig.screenWidth,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,12 +92,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Text('MyProfile',style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),)
                           ],
                         ),
-                        Icon(Icons.arrow_forward_ios,color: Colors.black54.withOpacity(.4),size: 16.0,),
+                        Icon(Icons.arrow_forward_ios,color: Colors.black54.withOpacity(.4),size: 12.0,),
                       ],
                     ),
                     Text("\n"),
@@ -112,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Text('Setting',style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),)
                           ],
@@ -132,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Text('Logout',style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),)
                           ],

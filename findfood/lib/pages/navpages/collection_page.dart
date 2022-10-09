@@ -56,7 +56,7 @@ class _CollectionPage extends State<CollectionPage> {
           ],
       ),
       body: SafeArea(
-          child: Container(
+        child: Container(
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
@@ -127,7 +127,8 @@ class _CollectionPage extends State<CollectionPage> {
             ),
           ],
         ),
-      )),
+      )
+      ),
     );
   }
 }
