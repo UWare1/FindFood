@@ -52,9 +52,9 @@ class _SpinnerPageState extends State<SpinnerPage> {
         children: [
           Container(
             width: double.maxFinite,
-            padding: EdgeInsets.only(left: 30),
+            padding: EdgeInsets.only(left: 0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AppLargeText(
                   text: "SPINNER",
@@ -67,13 +67,13 @@ class _SpinnerPageState extends State<SpinnerPage> {
           ),
           Stack(
             children: [
-              Container(
+              /*Container(
                 margin: EdgeInsets.only(top: 30, left: 30, bottom: 12),
                 child: AppLargeText(
                   text: "Ingredients",
                   size: 24,
                 ),
-              ),
+              ),*/
               Container(
                 height: SizeConfig.screenHeight * 0.8,
                 width: double.maxFinite,

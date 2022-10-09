@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/components/map.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
@@ -17,6 +18,8 @@ class RestaurantPage extends StatefulWidget {
 }
 
 class _RestaurantPageState extends State<RestaurantPage> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -61,7 +64,55 @@ class _RestaurantPageState extends State<RestaurantPage> {
           SizedBox(
             height: 20,
           ),
-          Container(
+          Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.always,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "Enter Search",
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    errorStyle: TextStyle(fontSize: 15),
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter a search!';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      ;
+                    },
+                    fillColor: AppColors.mainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Search',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          //List View
+          /*Container(
             width: double.maxFinite,
             height: SizeConfig.screenHeight * 0.86,
             child: ListView.builder(
@@ -136,7 +187,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 );
               },
             ),
-          ),
+          ),*/
         ],
       ),
     );
