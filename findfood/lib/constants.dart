@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-const kDefaultPaddin = 20.0;
+const kDefaultPaddin = 10.0;
