@@ -26,8 +26,7 @@ class _CollectionPage extends State<CollectionPage> {
         'assets/images/healthy-meat.png'
         'assets/images/pngfind.com-pizza-png-605630.png'
   ];
-  
-  get index => 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +46,14 @@ class _CollectionPage extends State<CollectionPage> {
           ),
         ),
         centerTitle: true,
+        actions: [
+            IconButton(
+                icon: const Icon(Icons.search_rounded),
+                color: Colors.black54,
+                onPressed: () {
+                  showSearch(context: context, delegate: CustomSearch());
+                })
+          ],
       ),
       body: SafeArea(
           child: Container(
@@ -96,37 +103,28 @@ class _CollectionPage extends State<CollectionPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         )),
-                    SizedBox(
-                      height: 100,
-                    ),
-                    Expanded(
-                        child: GridView.count(
-                      crossAxisCount: 2,
-                      padding: EdgeInsets.all(20),
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      children: _listItem
-                          .map((item) => Card(
-                                child: Container(
-                                  height: 180,
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                    color: Colors.amber[200],
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Image.asset(Foods[0].image),
-                                  /*decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(item),
-                                          fit: BoxFit.cover)),*/
-                                ),
-                              ))
-                          .toList(),
-                    ))
                   ],
                 ),
               ),
-            )
+            ),
+            //ขึ้นละ1 เท่านั้น
+            Container(
+              padding: EdgeInsets.all(kDefaultPaddin),
+              height: 180,
+              width: 160,
+              decoration: BoxDecoration(
+                color: Colors.amber[200],
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Image.asset(Foods[0].image),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
+              child: Text(
+                Foods[0].name,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
           ],
         ),
       )),
@@ -423,4 +421,75 @@ class _CollectionPageState extends State<CollectionPage> with TickerProviderStat
       ),
     );
   }*/
+class CustomSearch extends SearchDelegate {
+  List<String> allData = [
+    'Salmon Salad',
+    'Chicken Ramen',
+    'Veg Pizza',
+    'Salad',
+    'Fried-fish with rice',
+    'Pescado Soup',
+    'Indian Omelette',
+    'Yello Curry',
+    'Chicken fire rice',
+    'Kimchi fried rice',
+    'Green Curry'
+  ];
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allData) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+          );
+        });
+  }
+}
 
