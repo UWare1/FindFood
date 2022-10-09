@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:findfood/components/menu.dart';
 import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
@@ -285,9 +286,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Container(
                     margin:
                         EdgeInsets.only(right: getProportionateScreenWidth(20)),
-                    child: AppText(
-                      text: "See all",
-                      size: 16,
+                    child: GestureDetector(
+                      onTap: () {
+                        AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                        var snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Coming Soon!',
+                            message:
+                                'This feature is not yet available, please be patient!',
+                            contentType: ContentType.warning,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: AppText(
+                        text: "See all",
+                        size: 16,
+                      ),
                     ),
                   ),
                 ],
@@ -348,15 +367,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppLargeText(
-                                  text: "Healthy Meat",
-                                  size: 20,
-                                  color: Colors.white,
+                                Container(
+                                  margin: EdgeInsets.only(left: 3),
+                                  child: AppLargeText(
+                                    text: "Healthy Meat",
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
                                 ),
                                 //Star in Recommended
                                 Container(
                                   width: 200,
-                                  height: 20,
+                                  height: 26,
                                   margin: EdgeInsets.symmetric(
                                       vertical: getProportionateScreenWidth(4)),
                                   child: RatingBarIndicator(
