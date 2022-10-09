@@ -7,7 +7,135 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+    ));
+
 class CollectionPage extends StatefulWidget {
+  const CollectionPage({super.key});
+
+  @override
+  State<CollectionPage> createState() => _CollectionPage();
+}
+
+class _CollectionPage extends State<CollectionPage> {
+  //ListGridview
+  final List<String> _listItem = [
+    'assets/images/carbonara-spaghetti.png'
+        'assets/images/chicken-ceurry.png'
+        'assets/images/healthy-meat.png'
+        'assets/images/pngfind.com-pizza-png-605630.png'
+  ];
+  
+  get index => 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu),
+          color: Colors.black54,
+        ),
+        title: const Text(
+          'Collection Page',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+          child: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/salad-with-meat.png"),
+                    fit: BoxFit.cover),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient:
+                        LinearGradient(begin: Alignment.bottomRight, colors: [
+                  Colors.black.withOpacity(.4),
+                  Colors.black.withOpacity(.2),
+                ])),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Collection Food",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Center(
+                          child: Text(
+                            "Bookmark Now!",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Expanded(
+                        child: GridView.count(
+                      crossAxisCount: 2,
+                      padding: EdgeInsets.all(20),
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      children: _listItem
+                          .map((item) => Card(
+                                child: Container(
+                                  height: 180,
+                                  width: 160,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber[200],
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Image.asset(Foods[0].image),
+                                  /*decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(item),
+                                          fit: BoxFit.cover)),*/
+                                ),
+                              ))
+                          .toList(),
+                    ))
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      )),
+    );
+  }
+}
+
+//เกือบโอเคสุด
+/*class CollectionPage extends StatefulWidget {
   const CollectionPage({super.key});
 
   @override
@@ -100,7 +228,7 @@ class _CollectionPage extends State<CollectionPage> {
           )
         );
   }
-}
+}*/
 
 //เกือบดี
 /*class CollectionPage extends StatelessWidget {
