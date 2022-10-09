@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 : BorderRadius.circular(40),
             elevation: 8,
             child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //menu text
               Container(
                 padding: EdgeInsets.only(
@@ -337,8 +337,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       //Recommended Menu
                       Container(
                         width: double.maxFinite,
-                        height: SizeConfig.screenHeight * 0.18,
-                        padding: EdgeInsets.only(bottom: 0),
+                        height: SizeConfig.screenHeight * 0.21,
                         child: ListView.builder(
                           itemCount: 3,
                           scrollDirection: Axis.vertical,
@@ -358,9 +357,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 width: double.maxFinite,
                                 height: 130,
                                 margin: EdgeInsets.only(
-                                    left: getProportionateScreenWidth(20),
-                                    right: getProportionateScreenWidth(20),
-                                    bottom: getProportionateScreenHeight(20)),
+                                  top: getProportionateScreenHeight(20),
+                                  left: getProportionateScreenWidth(20),
+                                  right: getProportionateScreenWidth(20),
+                                ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.purpleAccent,

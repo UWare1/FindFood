@@ -2,6 +2,7 @@ import 'package:findfood/components/menu.dart';
 import 'package:findfood/pages/navpages/home_page.dart';
 import 'package:findfood/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'pages/navpages/main_page.dart';
 
@@ -11,10 +12,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    hideSystemBar();
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -72,3 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+Future hideSystemBar() async =>
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
