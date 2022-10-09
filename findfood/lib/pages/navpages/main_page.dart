@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: Colors.grey.withOpacity(0.5),
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        elevation: 0,
+        elevation: 6,
         items: const [
           BottomNavigationBarItem(
               label: "Home", tooltip: "Home", icon: Icon(Icons.apps)),
