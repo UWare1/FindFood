@@ -1,4 +1,5 @@
 // ignore_for_file: unused_label, prefer_const_constructors
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:findfood/data/favfood.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
@@ -34,18 +35,23 @@ class _FavouritePage extends State<FavouritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.orange[300],
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: Icon(
             Icons.arrow_back,
             size: 30,
             color: Colors.black54,
           ),
-          title: Text('FavouriteFood'),
+          title: Text('FavouriteFood Page',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,),
+          ),
           centerTitle: true,
           actions: [
             IconButton(
                 icon: const Icon(Icons.search_rounded),
+                 color: Colors.black54,
                 onPressed: () {
                   showSearch(context: context, delegate: CustomSearch());
                 })
@@ -73,7 +79,7 @@ class _FavouritePage extends State<FavouritePage> {
                   child: ListTile(
                     title: Text(favfood.title),
                     leading: Image.network(favfood.imageUrl),
-                    //trailing: Icon(Icons.delete),
+                    trailing: Icon(Icons.arrow_back_ios_new),
                   ),
                 ),
               );

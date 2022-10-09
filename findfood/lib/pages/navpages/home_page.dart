@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 : BorderRadius.circular(40),
             elevation: 8,
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //menu text
               Container(
                 padding: const EdgeInsets.only(top: 70, left: 20),

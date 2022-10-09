@@ -12,10 +12,6 @@ class FavFood{
 
 List<FavFood> favfoodlist = [
   FavFood(
-    title: 'Salmon Salad', 
-    imageUrl: 'https://www.nicepng.com/png/detail/54-546030_food-top-view-png-jpg-black-and-white.png',
-    ),
-  FavFood(
     title: 'Grilled Chicken Steak with Tomato',
     imageUrl:'https://www.kindpng.com/picc/m/242-2422753_transparent-food-plate-png-food-on-plate-top.png',
     ),
