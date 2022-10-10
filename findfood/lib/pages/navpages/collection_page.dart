@@ -1,7 +1,10 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/constants.dart';
 import 'package:findfood/data/food.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
+import 'package:findfood/widgets/menu_sidebar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -18,137 +21,153 @@ class CollectionPage extends StatefulWidget {
   State<CollectionPage> createState() => _CollectionPage();
 }
 
-class _CollectionPage extends State<CollectionPage> {
+class _CollectionPage extends State<CollectionPage>
+    with TickerProviderStateMixin {
+  bool isCollapsed = true;
+  late AnimationController _animationController;
   //ListGridview
   List photoFoods = [
     "fried-rice.png",
     "healthy-meat.png",
-    "chicken-ceurry.png",
-    "carbonara-spaghetti.png",
     "salad-with-meat.png",
-    "salmonsalad.png"
+    "salmonsalad.png",
+    "chicken-ceurry.png",
+    "carbonara-spaghetti.png"
   ];
-  List nameFoods = ["Fried Rice", "Healthy Meat", "Chicken curry","Carbonara Spaghetti","Salad with meat","Salmon Salad"];
-
+  List nameFoods = [
+    "Fried Rice",
+    "Healthy Meat",
+    "Salad with meat",
+    "Salmon Salad",
+    "Chicken curry",
+    "Carbonara Spaghetti"
+  ];
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+  }
+
+  void menuChangeTapped() {
+    if (isCollapsed == true) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-          color: Colors.black54,
-        ),
-        title: const Text(
-          'Collection Page',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.search_rounded),
-              color: Colors.black54,
-              onPressed: () {
-                showSearch(context: context, delegate: CustomSearch());
-              })
-        ],
-      ),
-      body: SafeArea(
-        /*child: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 250,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
-                    image: AssetImage("assets/images/salad-with-meat.png"),
-                    fit: BoxFit.cover),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(begin: Alignment.bottomRight, colors: [
-                  Colors.black.withOpacity(.4),
-                  Colors.black.withOpacity(.2),
-                ])),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Collection Food",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold),
+      body: Stack(
+        children: [
+          MenuSideBar(),
+          AnimatedPositioned(
+            top: isCollapsed ? 0 : 0.1 * SizeConfig.screenHeight,
+            bottom: isCollapsed ? 0 : -0.3 * SizeConfig.screenWidth,
+            left: isCollapsed ? 0 : 0.6 * SizeConfig.screenWidth,
+            right: isCollapsed ? 0 : -0.4 * SizeConfig.screenWidth,
+            curve: Curves.fastOutSlowIn,
+            duration: Duration(milliseconds: 600),
+            child: Material(
+              borderRadius: isCollapsed
+                  ? BorderRadius.circular(0)
+                  : BorderRadius.circular(40),
+              elevation: 8,
+              child: Column(
+                children: [
+              Container(
+                padding: EdgeInsets.only(
+                    top: getProportionateScreenHeight(58),
+                    left: getProportionateScreenWidth(16)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        menuChangeTapped();
+                        AudioPlayer()
+                            .play(AssetSource('audio/click_tone.mp3'));
+                        setState(() {
+                          isCollapsed = !isCollapsed;
+                        });
+                      },
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        progress: _animationController,
+                        size: 36,
+                        color: Colors.black54,
+                      ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+                    AppLargeText(text: "Collection", size: 24, color: Colors.black87,),
                     Container(
-                        height: 50,
-                        margin: EdgeInsets.symmetric(horizontal: 40),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
-                        child: Center(
-                          child: Text(
-                            "Bookmark Now!",
-                            style: TextStyle(
-                                color: Colors.grey[900],
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )),
+                      margin: EdgeInsets.only(
+                          right: getProportionateScreenWidth(16)),
+                      width: 50,
+                      height: 50,
+                      // decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     color: Colors.grey.withOpacity(0.5)),
+                      child: Icon(Icons.search),
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),*/
-          child: Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 225,
-                  ),
-                  itemCount: 6,
-                  itemBuilder: ((context, index) {
-                    return Container(
-                      //width: ,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/images/" + photoFoods[index]),
-                            fit: BoxFit.cover,
+              SizedBox(height: 30,),
+
+              Expanded(
+                child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: getProportionateScreenHeight(10)),
+                  child: GridView.builder(
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 220,
+                      ),
+                      itemCount: 6,
+                      itemBuilder: ((context, index) {
+                        return Container(
+                          width: double.maxFinite,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.mainColor),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: double.maxFinite,
+                                height: 120,
+                                margin: const EdgeInsets.only(bottom: 12),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage("assets/images/" +
+                                        photoFoods[index]),
+                                    fit: BoxFit.scaleDown,
+                                  ),
+                                ),
+                              ),
+                              AppLargeText(
+                                text: "Spaghetti",
+                                size: 18,
+                                color: Colors.black87,
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                    );
-                    Container(
-                      width: double.maxFinite,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(20)),
-                      child: AppLargeText(
-                        text: nameFoods[index],
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    );
-                  })))),
+                        );
+                      })),
+                ),
+              ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -248,6 +267,61 @@ class _CollectionPage extends State<CollectionPage> {
         );
   }
 }*/
+
+/*child: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/salad-with-meat.png"),
+                    fit: BoxFit.cover),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient:
+                        LinearGradient(begin: Alignment.bottomRight, colors: [
+                  Colors.black.withOpacity(.4),
+                  Colors.black.withOpacity(.2),
+                ])),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Collection Food",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 40),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        child: Center(
+                          child: Text(
+                            "Bookmark Now!",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),*/
 
 //เกือบดี
 /*class CollectionPage extends StatelessWidget {

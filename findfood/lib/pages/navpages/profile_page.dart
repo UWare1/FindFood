@@ -22,8 +22,9 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16),
-          height: SizeConfig.screenHeight,
+          height: SizeConfig.screenHeight * 0.8,
           width: SizeConfig.screenWidth,
+          //color: Colors.amber,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -86,11 +87,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.person,color: Colors.black54.withOpacity(.5),),
+                            Icon(Icons.help_outline,color: Colors.black54.withOpacity(.5),),
                             const SizedBox(
                               width: 16.0,
                             ),
-                            Text('MyProfile',style: TextStyle(
+                            Text('help',style: TextStyle(
                               color: Colors.black54,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
