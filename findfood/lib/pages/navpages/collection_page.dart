@@ -20,12 +20,15 @@ class CollectionPage extends StatefulWidget {
 
 class _CollectionPage extends State<CollectionPage> {
   //ListGridview
-  final List<String> _listItem = [
-    'assets/images/carbonara-spaghetti.png'
-        'assets/images/chicken-ceurry.png'
-        'assets/images/healthy-meat.png'
-        'assets/images/pngfind.com-pizza-png-605630.png'
+  List photoFoods = [
+    "fried-rice.png",
+    "healthy-meat.png",
+    "chicken-ceurry.png",
+    "carbonara-spaghetti.png",
+    "salad-with-meat.png",
+    "salmonsalad.png"
   ];
+  List nameFoods = ["Fried Rice", "Healthy Meat", "Chicken curry","Carbonara Spaghetti","Salad with meat","Salmon Salad"];
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +50,16 @@ class _CollectionPage extends State<CollectionPage> {
         ),
         centerTitle: true,
         actions: [
-            IconButton(
-                icon: const Icon(Icons.search_rounded),
-                color: Colors.black54,
-                onPressed: () {
-                  showSearch(context: context, delegate: CustomSearch());
-                })
-          ],
+          IconButton(
+              icon: const Icon(Icons.search_rounded),
+              color: Colors.black54,
+              onPressed: () {
+                showSearch(context: context, delegate: CustomSearch());
+              })
+        ],
       ),
       body: SafeArea(
-        child: Container(
+        /*child: Container(
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
@@ -107,28 +110,45 @@ class _CollectionPage extends State<CollectionPage> {
                 ),
               ),
             ),
-            //ขึ้นละ1 เท่านั้น
-            Container(
-              padding: EdgeInsets.all(kDefaultPaddin),
-              height: 180,
-              width: 160,
-              decoration: BoxDecoration(
-                color: Colors.amber[200],
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Image.asset(Foods[0].image),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-              child: Text(
-                Foods[0].name,
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
           ],
         ),
-      )
-      ),
+      ),*/
+          child: Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisExtent: 225,
+                  ),
+                  itemCount: 6,
+                  itemBuilder: ((context, index) {
+                    return Container(
+                      //width: ,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                            image: AssetImage(
+                                "assets/images/" + photoFoods[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
+                    Container(
+                      width: double.maxFinite,
+                      margin: EdgeInsets.symmetric(
+                          horizontal: getProportionateScreenWidth(20)),
+                      child: AppLargeText(
+                        text: nameFoods[index],
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    );
+                  })))),
     );
   }
 }
@@ -299,7 +319,6 @@ class _CollectionPage extends State<CollectionPage> {
       ), 
     );
   }*/
-
 
 /*class CollectionPage extends StatefulWidget {
   const CollectionPage({super.key});
@@ -493,4 +512,3 @@ class CustomSearch extends SearchDelegate {
         });
   }
 }
-
