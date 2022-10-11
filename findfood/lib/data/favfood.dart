@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class FavFood{
   String title;
-  String imageUrl;
+  String image;
 
   FavFood(
   {required this.title,
-    required this.imageUrl,
+    required this.image,
   });
 }
 
 List<FavFood> favfoodlist = [
   FavFood(
-    title: 'Grilled Chicken Steak with Tomato',
-    imageUrl:'https://www.kindpng.com/picc/m/242-2422753_transparent-food-plate-png-food-on-plate-top.png',
+    title: 'Healthy Meat',
+    image:'fish.png',
     ),
-  FavFood(
+  /*FavFood(
     title: 'Chicken Ramen', 
     imageUrl: 'https://www.kindpng.com/picc/m/64-644207_transparent-chinese-food-box-png-chicken-ramen-wagamama.png',
     ),
@@ -54,7 +54,7 @@ List<FavFood> favfoodlist = [
     FavFood(
       title: 'Green Curry', 
       imageUrl: 'https://www.kindpng.com/picc/m/7-77130_asian-soups-hd-png-download.png',
-    ),
+    ),*/
 ];
   
 

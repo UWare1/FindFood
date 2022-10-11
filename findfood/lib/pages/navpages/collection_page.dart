@@ -152,9 +152,10 @@ class _CollectionPage extends State<CollectionPage>
                                 ),
                               ),
                               AppLargeText(
-                                text: "Spaghetti",
+                                text: nameFoods[index],
                                 size: 18,
                                 color: Colors.black87,
+            
                               )
                             ],
                           ),

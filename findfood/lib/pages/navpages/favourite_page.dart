@@ -2,6 +2,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:findfood/data/favfood.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/menu_sidebar.dart';
@@ -22,19 +23,22 @@ class _FavouritePage extends State<FavouritePage>
     with TickerProviderStateMixin {
   bool isCollapsed = true;
   late AnimationController _animationController;
-  final itemList = [
-    {
-      'image': 'assets/images/favfood/pizza.png',
-      'title': 'Pizza',
-    },
-    {
-      'image': 'assets/images/favfood/Salad.png',
-      'title': 'Salad',
-    },
-    {
-      'image': 'assets/images/favfood/Ramen.png',
-      'title': 'Ramen',
-    },
+  //ListGridview
+  List photoFoods = [
+    "fried-rice.png",
+    "healthy-meat.png",
+    "salad-with-meat.png",
+    "salmonsalad.png",
+    "chicken-ceurry.png",
+    "carbonara-spaghetti.png"
+  ];
+  List nameFoods = [
+    "Fried Rice",
+    "Healthy Meat",
+    "Salad with meat",
+    "Salmon Salad",
+    "Chicken curry",
+    "Carbonara Spaghetti"
   ];
   @override
   void initState() {
@@ -101,11 +105,13 @@ class _FavouritePage extends State<FavouritePage>
                     top: getProportionateScreenHeight(58),
                     left: getProportionateScreenWidth(16)),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
                         menuChangeTapped();
-                        AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
+                        AudioPlayer()
+                            .play(AssetSource('audio/click_tone.mp3'));
                         setState(() {
                           isCollapsed = !isCollapsed;
                         });
@@ -117,7 +123,7 @@ class _FavouritePage extends State<FavouritePage>
                         color: Colors.black54,
                       ),
                     ),
-                    Expanded(child: Container()),
+                    AppLargeText(text: "FavouritePage", size: 24, color: Colors.black87,),
                     Container(
                       margin: EdgeInsets.only(
                           right: getProportionateScreenWidth(16)),
@@ -126,40 +132,106 @@ class _FavouritePage extends State<FavouritePage>
                       // decoration: BoxDecoration(
                       //     borderRadius: BorderRadius.circular(10),
                       //     color: Colors.grey.withOpacity(0.5)),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/images/iconprofile.png"),
-                      )),
+                      child: Icon(Icons.search),
                     ),
                   ],
                 ),
               ),
             Expanded(
               child: Container(
+                //width: double.maxFinite,
+                //height: SizeConfig.screenHeight * 0.5,
                 padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10), vertical: getProportionateScreenHeight(10)),
                 child: ListView.builder(
-                    itemCount: favfoodlist.length,
+                    itemCount: photoFoods.length,
                     itemBuilder: (context, index) {
-                      FavFood favfood = favfoodlist[index];
-                      return Slidable(
-                        key: Key('$favfood'),
-                        endActionPane:
-                            ActionPane(motion: const ScrollMotion(), children: [
-                          SlidableAction(
-                            onPressed: (context) {
-                              setState(() {
-                                favfoodlist.removeAt(index);
-                              });
-                            },
-                            backgroundColor: Colors.red,
-                            icon: Icons.delete,
-                          ),
-                        ]),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(favfood.title),
-                            leading: Image.network(favfood.imageUrl),
-                            trailing: Icon(Icons.more_vert_rounded),
+                      //FavFood favfood = favfoodlist[index];
+                      return Container(
+                        margin: EdgeInsets.all(0),
+                        height: 120,
+                        child: Slidable(  
+                          key: Key('$photoFoods'),
+                          endActionPane:
+                              ActionPane(motion: const ScrollMotion(), children: [
+                            SlidableAction(
+                              onPressed: (context) {
+                                setState(() {
+                                  photoFoods.removeAt(index);
+                                });
+                              },
+                              backgroundColor: Colors.red,borderRadius: BorderRadius.circular(12),
+                              icon: Icons.delete,
+                            ),
+                          ]),
+                          child: Container(
+                            width: double.maxFinite,
+                            height: SizeConfig.screenHeight *0.15,
+                            margin: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: AppColors.mainColor
+                                      ),
+                            //padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
+                            child: Stack(   
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      height: 80,
+                                      //margin: const EdgeInsets.only(top: 10,bottom: 10,left: 3),
+                                      width: 80,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.asset("assets/images/" + photoFoods[index], 
+                                      fit: BoxFit.scaleDown,),
+                                      ),
+                                    ),
+                                     AppLargeText(
+                                  text: nameFoods[index],size: 18,color: Colors.black,),
+                                  Icon(Icons.more_vert_rounded)
+                                  ],
+                                ),
+                               
+                                /*Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20)
+                                    ),
+                                  ),
+                                  )
+                                ),*/
+                                /*AppLargeText(
+                                  text: nameFoods[index],
+                                  size: 18,
+                                  color: Colors.black,),*/
+                                /*Row(
+                                  children: [
+                                    Text(nameFoods[index]),             
+                                    //Icon(Icons.more_vert_rounded,size: 150,color: Colors.white,),
+                                   /*ClipOval(
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: Icon(Icons.more_vert_rounded,size: 100,),
+                                    ),
+                                   ), */
+                                  ],
+                                )*/
+                                /*Text(nameFoods[index]),
+                                Image.asset("assets/images"+photoFoods[index]),
+                                //Image.asset('lib/data/favfood'),
+                                //Image.network(favfood.image),
+                                Icon(Icons.more_vert_rounded),*/
+                              ],          
+                            ),
                           ),
                         ),
                       );
