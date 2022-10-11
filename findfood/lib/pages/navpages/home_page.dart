@@ -7,10 +7,12 @@ import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
 import 'package:findfood/widgets/count_and_serve.dart';
 import 'package:findfood/widgets/menu_sidebar.dart';
+import 'package:findfood/widgets/type_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 /*class MenuInfo {
   final List photoFoods;
@@ -199,6 +201,157 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   nameFoods: nameFoods[index],
                                                 )));
                                   },
+                                  onLongPress: () {
+                                    showCupertinoModalBottomSheet(
+                                        expand: false,
+                                        context: context,
+                                        topRadius: Radius.circular(30),
+                                        elevation: 30,
+                                        backgroundColor: Colors.transparent,
+                                        builder: (context) => Container(
+                                              height: SizeConfig.screenHeight *
+                                                  0.425,
+                                              color: Colors.white,
+                                              padding: EdgeInsets.all(30),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Material(
+                                                      type: MaterialType
+                                                          .transparency,
+                                                      child: Container(
+                                                        height: SizeConfig
+                                                                .screenHeight *
+                                                            0.2,
+                                                        decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                                image: AssetImage(
+                                                                    'assets/images/' +
+                                                                        photoFoods[
+                                                                            index]))),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    DefaultTextStyle(
+                                                      style: TextStyle(),
+                                                      child: AppLargeText(
+                                                        text: nameFoods[index],
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          getProportionateScreenHeight(
+                                                              10),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        TypeInBottomSheet(
+                                                            name: "Thai"),
+                                                        TypeInBottomSheet(
+                                                            name: "Healthy"),
+                                                        TypeInBottomSheet(
+                                                            name: "181 kcals"),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          getProportionateScreenHeight(
+                                                              10),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        DefaultTextStyle(
+                                                          style: TextStyle(),
+                                                          child: AppLargeText(
+                                                            text: "9.0",
+                                                            size: 20,
+                                                            color:
+                                                                Colors.black87,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        RatingBarIndicator(
+                                                          rating: 3.7,
+                                                          itemBuilder: (context,
+                                                                  index) =>
+                                                              Icon(
+                                                            Icons.star,
+                                                            color: Colors.amber,
+                                                          ),
+                                                          itemCount: 5,
+                                                          itemSize: 24,
+                                                          direction:
+                                                              Axis.horizontal,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .access_time_rounded,
+                                                          size: 26,
+                                                        ),
+                                                        Container(
+                                                          margin: EdgeInsets.only(
+                                                              left:
+                                                                  getProportionateScreenWidth(
+                                                                      6)),
+                                                          child: DefaultTextStyle(
+                                                              style:
+                                                                  TextStyle(),
+                                                              child: AppText(
+                                                                  text:
+                                                                      "30 Mins")),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Icon(
+                                                          Icons
+                                                              .favorite_outline_outlined,
+                                                          size: 26,
+                                                        ),
+                                                        Container(
+                                                          margin: EdgeInsets.only(
+                                                              left:
+                                                                  getProportionateScreenWidth(
+                                                                      6)),
+                                                          child: DefaultTextStyle(
+                                                              style:
+                                                                  TextStyle(),
+                                                              child: AppText(
+                                                                  text:
+                                                                      "26 Likes")),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ));
+                                  },
                                   child: Container(
                                     margin: const EdgeInsets.only(
                                         top: 30, bottom: 15, right: 15),
@@ -337,7 +490,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       //Recommended Menu
                       Container(
                         width: double.maxFinite,
-                        height: SizeConfig.screenHeight * 0.21,
+                        height: SizeConfig.screenHeight * 0.3,
                         child: ListView.builder(
                           itemCount: 3,
                           scrollDirection: Axis.vertical,
@@ -352,6 +505,149 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                         builder: (context) => MenuFood(
                                               nameFoods: nameFoods[index],
                                             )));
+                              },
+                              onLongPress: () {
+                                showCupertinoModalBottomSheet(
+                                    expand: false,
+                                    context: context,
+                                    topRadius: Radius.circular(30),
+                                    elevation: 30,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (context) => Container(
+                                          height:
+                                              SizeConfig.screenHeight * 0.425,
+                                          color: Colors.white,
+                                          padding: EdgeInsets.all(30),
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Material(
+                                                  type:
+                                                      MaterialType.transparency,
+                                                  child: Container(
+                                                    height: SizeConfig
+                                                            .screenHeight *
+                                                        0.2,
+                                                    decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                            image: AssetImage(
+                                                                'assets/images/' +
+                                                                    photoFoods[
+                                                                        index]))),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                DefaultTextStyle(
+                                                  style: TextStyle(),
+                                                  child: AppLargeText(
+                                                    text: nameFoods[index],
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height:
+                                                      getProportionateScreenHeight(
+                                                          10),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    TypeInBottomSheet(
+                                                        name: "Thai"),
+                                                    TypeInBottomSheet(
+                                                        name: "Healthy"),
+                                                    TypeInBottomSheet(
+                                                        name: "181 kcals"),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height:
+                                                      getProportionateScreenHeight(
+                                                          10),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    DefaultTextStyle(
+                                                      style: TextStyle(),
+                                                      child: AppLargeText(
+                                                        text: "9.0",
+                                                        size: 20,
+                                                        color: Colors.black87,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    RatingBarIndicator(
+                                                      rating: 3.7,
+                                                      itemBuilder:
+                                                          (context, index) =>
+                                                              Icon(
+                                                        Icons.star,
+                                                        color: Colors.amber,
+                                                      ),
+                                                      itemCount: 5,
+                                                      itemSize: 24,
+                                                      direction:
+                                                          Axis.horizontal,
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.access_time_rounded,
+                                                      size: 26,
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left:
+                                                              getProportionateScreenWidth(
+                                                                  6)),
+                                                      child: DefaultTextStyle(
+                                                          style: TextStyle(),
+                                                          child: AppText(
+                                                              text: "30 Mins")),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .favorite_outline_outlined,
+                                                      size: 26,
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left:
+                                                              getProportionateScreenWidth(
+                                                                  6)),
+                                                      child: DefaultTextStyle(
+                                                          style: TextStyle(),
+                                                          child: AppText(
+                                                              text:
+                                                                  "26 Likes")),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ));
                               },
                               child: Container(
                                 width: double.maxFinite,

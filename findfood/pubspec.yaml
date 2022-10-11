@@ -38,6 +38,7 @@ dependencies:
   rxdart: ^0.27.5
   flutter_rating_bar: ^4.0.1
   awesome_snackbar_content: ^0.0.8
+  modal_bottom_sheet: ^2.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -73,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/ingredients/
+    - assets/images/icons/
 
     - assets/audio/
 

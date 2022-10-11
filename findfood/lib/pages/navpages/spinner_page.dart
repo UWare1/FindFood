@@ -26,9 +26,9 @@ class _SpinnerPageState extends State<SpinnerPage> {
     "healthy-meat.png",
     "salad-with-meat.png",
     "fried-rice.png",
+    "healthy-meat.png",
     "fried-rice.png",
-    "fried-rice.png",
-    "fried-rice.png",
+    "healthy-meat.png",
     /*"healthy-meat.png",
     "salad-with-meat.png",
     "fried-rice.png",
@@ -47,60 +47,52 @@ class _SpinnerPageState extends State<SpinnerPage> {
     SizeConfig().init(context);
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: double.maxFinite,
-            padding: EdgeInsets.only(left: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppLargeText(
-                  text: "SPINNER",
-                  size: 42,
-                ),
-                Text("Rotate your food in the bottom of this page."),
-              ],
+          Flexible(
+            flex: 1,
+            child: Container(
+              width: double.maxFinite,
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppLargeText(
+                    text: "SPINNER",
+                    size: 42,
+                  ),
+                  Text("Rotate your food in the bottom of this page."),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+              //decoration: BoxDecoration(color: Colors.amber),
             ),
-            //decoration: BoxDecoration(color: Colors.amber),
           ),
-          Stack(
-            children: [
-              /*Container(
-                margin: EdgeInsets.only(top: 30, left: 30, bottom: 12),
-                child: AppLargeText(
-                  text: "Ingredients",
-                  size: 24,
-                ),
-              ),*/
-              Container(
-                height: SizeConfig.screenHeight * 0.8,
-                width: double.maxFinite,
-                alignment: Alignment.bottomCenter,
-                child: FractionalTranslation(
-                  translation: Offset(0, 0.56),
+          Flexible(
+            flex: 1,
+            child: Stack(
+              children: [
+                FractionalTranslation(
+                  translation: Offset(0, 0.36),
                   child: Transform.scale(
                     scale: 2.25,
                     child: Container(
-                      height: 600,
+                      height: SizeConfig.screenHeight * 0.56,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(800),
                           color: Color.fromARGB(255, 245, 162, 54)),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: SizeConfig.screenHeight * 0.8,
-                width: double.maxFinite,
-                alignment: Alignment.bottomCenter,
-                child: FractionalTranslation(
-                  translation: Offset(0, 0.58),
+                FractionalTranslation(
+                  translation: Offset(0, 0.575),
                   child: Transform.scale(
                     scale: 2.25,
-                    child: Container(
-                      height: 600,
+                    child: SizedBox(
+                      height: SizeConfig.screenHeight * 0.56,
                       child: FortuneWheel(
                         selected: selected.stream,
                         animateFirst: false,
@@ -164,8 +156,8 @@ class _SpinnerPageState extends State<SpinnerPage> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

@@ -46,23 +46,72 @@ class _MainPageState extends State<MainPage> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         elevation: 6,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              label: "Home", tooltip: "Home", icon: Icon(Icons.apps)),
+            label: "Home",
+            tooltip: "Home",
+            icon: const Image(
+              image: AssetImage('assets/images/icons/home_3.png'),
+              width: 24,
+            ),
+            activeIcon: Image(
+              image: const AssetImage('assets/images/icons/home_3.png'),
+              width: 24,
+              color: AppColors.mainColor,
+            ),
+          ),
           BottomNavigationBarItem(
-              label: "Favourite",
-              tooltip: "Favourite",
-              icon: Icon(Icons.favorite)),
+            label: "Favourite",
+            tooltip: "Favourite",
+            icon: Image(
+              image: AssetImage('assets/images/icons/love_2.png'),
+              width: 24,
+            ),
+            activeIcon: Image(
+              image: const AssetImage('assets/images/icons/love_2.png'),
+              width: 24,
+              color: AppColors.mainColor,
+            ),
+          ),
           BottomNavigationBarItem(
-              label: "Spinner",
-              tooltip: "Spinner",
-              icon: Icon(Icons.bar_chart_sharp)),
+            label: "Spinner",
+            tooltip: "Spinner",
+            icon: Image(
+              image: AssetImage('assets/images/icons/spinner_3.png'),
+              width: 24,
+            ),
+            activeIcon: Image(
+              image: const AssetImage('assets/images/icons/spinner_3.png'),
+              width: 24,
+              color: AppColors.mainColor,
+            ),
+          ),
           BottomNavigationBarItem(
-              label: "Collection",
-              tooltip: "Collection",
-              icon: Icon(Icons.collections_bookmark_rounded)),
+            label: "Collection",
+            tooltip: "Collection",
+            icon: Image(
+              image: AssetImage('assets/images/icons/collection_2.png'),
+              width: 24,
+            ),
+            activeIcon: Image(
+              image: const AssetImage('assets/images/icons/collection_2.png'),
+              width: 24,
+              color: AppColors.mainColor,
+            ),
+          ),
           BottomNavigationBarItem(
-              label: "Profile", tooltip: "Profile", icon: Icon(Icons.person)),
+            label: "Profile",
+            tooltip: "Profile",
+            icon: Image(
+              image: AssetImage('assets/images/icons/account_1.png'),
+              width: 24,
+            ),
+            activeIcon: Image(
+              image: const AssetImage('assets/images/icons/account_1.png'),
+              width: 24,
+              color: AppColors.mainColor,
+            ),
+          ),
         ],
       ),
     );
