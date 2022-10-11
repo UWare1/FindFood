@@ -110,8 +110,7 @@ class _FavouritePage extends State<FavouritePage>
                     GestureDetector(
                       onTap: () {
                         menuChangeTapped();
-                        AudioPlayer()
-                            .play(AssetSource('audio/click_tone.mp3'));
+                        AudioPlayer().play(AssetSource('audio/click_tone.mp3'));
                         setState(() {
                           isCollapsed = !isCollapsed;
                         });
@@ -123,7 +122,11 @@ class _FavouritePage extends State<FavouritePage>
                         color: Colors.black54,
                       ),
                     ),
-                    AppLargeText(text: "FavouritePage", size: 24, color: Colors.black87,),
+                    AppLargeText(
+                      text: "FavouritePage",
+                      size: 24,
+                      color: Colors.black87,
+                    ),
                     Container(
                       margin: EdgeInsets.only(
                           right: getProportionateScreenWidth(16)),
@@ -137,110 +140,87 @@ class _FavouritePage extends State<FavouritePage>
                   ],
                 ),
               ),
-            Expanded(
-              child: Container(
-                //width: double.maxFinite,
-                //height: SizeConfig.screenHeight * 0.5,
-                padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10), vertical: getProportionateScreenHeight(10)),
-                child: ListView.builder(
-                    itemCount: photoFoods.length,
-                    itemBuilder: (context, index) {
-                      //FavFood favfood = favfoodlist[index];
-                      return Container(
-                        margin: EdgeInsets.all(0),
-                        height: 120,
-                        child: Slidable(  
-                          key: Key('$photoFoods'),
-                          endActionPane:
-                              ActionPane(motion: const ScrollMotion(), children: [
-                            SlidableAction(
-                              onPressed: (context) {
-                                setState(() {
-                                  photoFoods.removeAt(index);
-                                });
-                              },
-                              backgroundColor: Colors.red,borderRadius: BorderRadius.circular(12),
-                              icon: Icons.delete,
-                            ),
-                          ]),
-                          child: Container(
-                            width: double.maxFinite,
-                            height: SizeConfig.screenHeight *0.15,
-                            margin: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.mainColor
-                                      ),
-                            //padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
-                            child: Stack(   
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      height: 80,
-                                      //margin: const EdgeInsets.only(top: 10,bottom: 10,left: 3),
-                                      width: 80,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.asset("assets/images/" + photoFoods[index], 
-                                      fit: BoxFit.scaleDown,),
-                                      ),
-                                    ),
-                                     AppLargeText(
-                                  text: nameFoods[index],size: 18,color: Colors.black,),
-                                  Icon(Icons.more_vert_rounded)
-                                  ],
-                                ),
-                               
-                                /*Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(20),
-                                      bottomRight: Radius.circular(20)
-                                    ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(10),
+                      vertical: getProportionateScreenHeight(10)),
+                  child: ListView.builder(
+                      itemCount: photoFoods.length,
+                      itemBuilder: (context, index) {
+                        //FavFood favfood = favfoodlist[index];
+                        return Container(
+                          margin: EdgeInsets.all(0),
+                          height: 120,
+                          child: Slidable(
+                            key: Key('$photoFoods'),
+                            endActionPane: ActionPane(
+                                motion: const ScrollMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {
+                                      setState(() {
+                                        photoFoods.removeAt(index);
+                                      });
+                                    },
+                                    backgroundColor: Colors.red,
+                                    borderRadius: BorderRadius.circular(12),
+                                    icon: Icons.delete,
                                   ),
-                                  )
-                                ),*/
-                                /*AppLargeText(
-                                  text: nameFoods[index],
-                                  size: 18,
-                                  color: Colors.black,),*/
-                                /*Row(
-                                  children: [
-                                    Text(nameFoods[index]),             
-                                    //Icon(Icons.more_vert_rounded,size: 150,color: Colors.white,),
-                                   /*ClipOval(
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      child: Icon(Icons.more_vert_rounded,size: 100,),
-                                    ),
-                                   ), */
-                                  ],
-                                )*/
-                                /*Text(nameFoods[index]),
-                                Image.asset("assets/images"+photoFoods[index]),
-                                //Image.asset('lib/data/favfood'),
-                                //Image.network(favfood.image),
-                                Icon(Icons.more_vert_rounded),*/
-                              ],          
+                                ]),
+                            child: Container(
+                              width: double.maxFinite,
+                              height: SizeConfig.screenHeight * 0.15,
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.mainColor),
+                              child: Stack(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 180,
+                                        margin: const EdgeInsets.all(10),
+                                        width: 80,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.asset(
+                                            "assets/images/" +
+                                                photoFoods[index],
+                                            fit: BoxFit.scaleDown,
+                                          ),
+                                        ),
+                                      ),
+                            
+                                        AppLargeText(
+                                        text: nameFoods[index],
+                                        size: 18,
+                                        color: Colors.black87,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            right: getProportionateScreenWidth(
+                                                16)),
+                                        width: 20,
+                                        height: 20,
+                                        child: Icon(Icons.more_vert_rounded),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                ),
               ),
-            ),
-            ]
+            ]),
           ),
-        ),
         )
       ],
     ));
