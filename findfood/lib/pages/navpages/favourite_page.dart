@@ -2,6 +2,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:findfood/data/favfood.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/menu_sidebar.dart';
@@ -22,19 +23,22 @@ class _FavouritePage extends State<FavouritePage>
     with TickerProviderStateMixin {
   bool isCollapsed = true;
   late AnimationController _animationController;
-  final itemList = [
-    {
-      'image': 'assets/images/favfood/pizza.png',
-      'title': 'Pizza',
-    },
-    {
-      'image': 'assets/images/favfood/Salad.png',
-      'title': 'Salad',
-    },
-    {
-      'image': 'assets/images/favfood/Ramen.png',
-      'title': 'Ramen',
-    },
+  //ListGridview
+  List photoFoods = [
+    "fried-rice.png",
+    "healthy-meat.png",
+    "salad-with-meat.png",
+    "salmonsalad.png",
+    "chicken-ceurry.png",
+    "carbonara-spaghetti.png"
+  ];
+  List nameFoods = [
+    "Fried Rice",
+    "Healthy Meat",
+    "Salad with meat",
+    "Salmon Salad",
+    "Chicken curry",
+    "Carbonara Spaghetti"
   ];
   @override
   void initState() {
@@ -101,6 +105,7 @@ class _FavouritePage extends State<FavouritePage>
                     top: getProportionateScreenHeight(58),
                     left: getProportionateScreenWidth(16)),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -117,7 +122,11 @@ class _FavouritePage extends State<FavouritePage>
                         color: Colors.black54,
                       ),
                     ),
-                    Expanded(child: Container()),
+                    AppLargeText(
+                      text: "FavouritePage",
+                      size: 24,
+                      color: Colors.black87,
+                    ),
                     Container(
                       margin: EdgeInsets.only(
                           right: getProportionateScreenWidth(16)),
@@ -126,49 +135,92 @@ class _FavouritePage extends State<FavouritePage>
                       // decoration: BoxDecoration(
                       //     borderRadius: BorderRadius.circular(10),
                       //     color: Colors.grey.withOpacity(0.5)),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        image: AssetImage("assets/images/iconprofile.png"),
-                      )),
+                      child: Icon(Icons.search),
                     ),
                   ],
                 ),
               ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10), vertical: getProportionateScreenHeight(10)),
-                child: ListView.builder(
-                    itemCount: favfoodlist.length,
-                    itemBuilder: (context, index) {
-                      FavFood favfood = favfoodlist[index];
-                      return Slidable(
-                        key: Key('$favfood'),
-                        endActionPane:
-                            ActionPane(motion: const ScrollMotion(), children: [
-                          SlidableAction(
-                            onPressed: (context) {
-                              setState(() {
-                                favfoodlist.removeAt(index);
-                              });
-                            },
-                            backgroundColor: Colors.red,
-                            icon: Icons.delete,
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(10),
+                      vertical: getProportionateScreenHeight(10)),
+                  child: ListView.builder(
+                      itemCount: photoFoods.length,
+                      itemBuilder: (context, index) {
+                        //FavFood favfood = favfoodlist[index];
+                        return Container(
+                          margin: EdgeInsets.all(0),
+                          height: 120,
+                          child: Slidable(
+                            key: Key('$photoFoods'),
+                            endActionPane: ActionPane(
+                                motion: const ScrollMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {
+                                      setState(() {
+                                        photoFoods.removeAt(index);
+                                      });
+                                    },
+                                    backgroundColor: Colors.red,
+                                    borderRadius: BorderRadius.circular(12),
+                                    icon: Icons.delete,
+                                  ),
+                                ]),
+                            child: Container(
+                              width: double.maxFinite,
+                              height: SizeConfig.screenHeight * 0.15,
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.mainColor),
+                              child: Stack(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: 180,
+                                        margin: const EdgeInsets.all(10),
+                                        width: 80,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.asset(
+                                            "assets/images/" +
+                                                photoFoods[index],
+                                            fit: BoxFit.scaleDown,
+                                          ),
+                                        ),
+                                      ),
+                            
+                                        AppLargeText(
+                                        text: nameFoods[index],
+                                        size: 18,
+                                        color: Colors.black87,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            right: getProportionateScreenWidth(
+                                                16)),
+                                        width: 20,
+                                        height: 20,
+                                        child: Icon(Icons.more_vert_rounded),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ]),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(favfood.title),
-                            leading: Image.network(favfood.imageUrl),
-                            trailing: Icon(Icons.more_vert_rounded),
-                          ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                ),
               ),
-            ),
-            ]
+            ]),
           ),
-        ),
         )
       ],
     ));
