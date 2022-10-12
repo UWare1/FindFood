@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/components/restaurant.dart';
+import 'package:findfood/foods.dart';
+import 'package:findfood/pages/empty_page.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +12,18 @@ import 'package:like_button/like_button.dart';
 import '../size_config.dart';
 
 class MenuFood extends StatefulWidget {
-  final String nameFoods;
-  const MenuFood({super.key, required this.nameFoods});
+  //final String nameFoods;
+  final Foods foodItem;
+  const MenuFood({super.key, required this.foodItem});
 
   @override
-  State<MenuFood> createState() => _MenuFood(nameFoods);
+  State<MenuFood> createState() => _MenuFood(foodItem);
 }
 
 class _MenuFood extends State<MenuFood> {
-  String nameFoods;
-  _MenuFood(this.nameFoods);
+  //String nameFoods;
+  Foods foodItem;
+  _MenuFood(this.foodItem);
 
   bool isLiked = false;
 
@@ -62,10 +66,10 @@ class _MenuFood extends State<MenuFood> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AppLargeText(
-                    text: nameFoods,
+                    text: foodItem.name!,
                     color: Colors.black87,
                   ),
-                  AppText(text: "Thai Category"),
+                  AppText(text: "${foodItem.country} Category"),
                   SizedBox(
                     height: 30,
                   ),
@@ -118,7 +122,8 @@ class _MenuFood extends State<MenuFood> {
                                             "assets/images/calories.png"),
                                         fit: BoxFit.scaleDown)),
                               ),
-                              AppText(text: "180 kcals")
+                              AppText(
+                                  text: "${foodItem.nutrients?.calories} kcals")
                             ],
                           ),
                         ),
@@ -154,7 +159,9 @@ class _MenuFood extends State<MenuFood> {
                               //       fontWeight: FontWeight.bold,
                               //       color: Colors.black54),
                               // ),
-                              AppText(text: "27 g'")
+                              AppText(
+                                  text:
+                                      "${foodItem.nutrients?.carbohydrates} g")
                             ],
                           ),
                         ),
@@ -183,7 +190,7 @@ class _MenuFood extends State<MenuFood> {
                                             "assets/images/fish.png"),
                                         fit: BoxFit.scaleDown)),
                               ),
-                              AppText(text: "5.9 g'")
+                              AppText(text: "${foodItem.nutrients?.protein} g")
                             ],
                           ),
                         ),
@@ -198,6 +205,7 @@ class _MenuFood extends State<MenuFood> {
                     margin: const EdgeInsets.symmetric(horizontal: 60),
                     child: SingleChildScrollView(
                       child: Text(
+                        //foodItem.description!
                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
                         overflow: TextOverflow.fade,
                         softWrap: true,
@@ -213,7 +221,7 @@ class _MenuFood extends State<MenuFood> {
                     width: double.maxFinite,
                     height: 150,
                     child: ListView.builder(
-                      itemCount: 10,
+                      itemCount: foodItem.ingredients?.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
@@ -249,7 +257,7 @@ class _MenuFood extends State<MenuFood> {
                                         fit: BoxFit.scaleDown)),
                               ),
                               AppText(
-                                text: "Basil",
+                                text: foodItem.ingredients![index].name!,
                                 color: Colors.white,
                               )
                             ],
@@ -267,7 +275,8 @@ class _MenuFood extends State<MenuFood> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RestaurantPage()));
+                              builder: (context) =>
+                                  RestaurantPage(foodItem: foodItem)));
                     },
                     child: Container(
                       margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),

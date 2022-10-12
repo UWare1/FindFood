@@ -11,6 +11,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 
 class SpinnerPage extends StatefulWidget {
   const SpinnerPage({super.key});
@@ -19,7 +20,10 @@ class SpinnerPage extends StatefulWidget {
   State<SpinnerPage> createState() => _SpinnerPageState();
 }
 
-class _SpinnerPageState extends State<SpinnerPage> {
+class _SpinnerPageState extends State<SpinnerPage>
+    with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
   final selected = BehaviorSubject<int>();
   List<String> items = [
     "fried-rice.png",
@@ -35,9 +39,18 @@ class _SpinnerPageState extends State<SpinnerPage> {
     "healthy-meat.png",
     "salad-with-meat.png",*/
   ];
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _animation =
+        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+    super.initState();
+  }
 
   @override
   void dispose() {
+    _animationController.dispose();
     selected.close();
     super.dispose();
   }
@@ -45,121 +58,125 @@ class _SpinnerPageState extends State<SpinnerPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Flexible(
-            flex: 1,
-            child: Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppLargeText(
-                    text: "SPINNER",
-                    size: 42,
-                  ),
-                  Text("Rotate your food in the bottom of this page."),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
-              //decoration: BoxDecoration(color: Colors.amber),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Stack(
-              children: [
-                FractionalTranslation(
-                  translation: Offset(0, 0.36),
-                  child: Transform.scale(
-                    scale: 2.25,
-                    child: Container(
-                      height: SizeConfig.screenHeight * 0.56,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(800),
-                          color: Color.fromARGB(255, 245, 162, 54)),
+    _animationController.forward();
+    return FadeTransition(
+      opacity: _animation,
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.06),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppLargeText(
+                      text: "SPINNER",
+                      size: 42,
                     ),
-                  ),
+                    Text("Rotate your food in the bottom of this page."),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ],
                 ),
-                FractionalTranslation(
-                  translation: Offset(0, 0.575),
-                  child: Transform.scale(
-                    scale: 2.25,
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.56,
-                      child: FortuneWheel(
-                        selected: selected.stream,
-                        animateFirst: false,
-                        physics: CircularPanPhysics(
-                            duration: Duration(seconds: 1),
-                            curve: Curves.decelerate),
-                        onFling: () {
-                          AudioPlayer().play(
-                            AssetSource('audio/spinner_tone.mp3'),
-                          );
-                          setState(() {
-                            selected.add(Fortune.randomInt(0, items.length));
-                          });
-                        },
-                        indicators: const <FortuneIndicator>[
-                          FortuneIndicator(
-                              alignment: Alignment.centerRight,
-                              child: TriangleIndicator(
-                                color: Colors.transparent,
-                              ))
-                        ],
-                        items: [
-                          for (int i = 0;
-                              i < items.length;
-                              i++) ...<FortuneItem>{
-                            FortuneItem(
-                              child: Container(
-                                height: 120,
-                                width: 120,
-                                margin: EdgeInsets.only(left: 60),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/' + items[i]),
-                                        fit: BoxFit.cover)),
-                              ),
-                              style: const FortuneItemStyle(
-                                  color: Colors.orangeAccent,
-                                  borderColor: Colors.orangeAccent,
-                                  borderWidth: 3),
-                              onTap: () {
-                                AudioPlayer()
-                                    .play(AssetSource('audio/click_tone.mp3'));
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            MenuFood(nameFoods: items[i])));
-                              },
-                            )
-                          }
-                        ],
-                        onAnimationEnd: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MenuFood(
-                                      nameFoods: items[selected.value])));
-                        },
+                //decoration: BoxDecoration(color: Colors.amber),
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: Stack(
+                children: [
+                  FractionalTranslation(
+                    translation: Offset(0, 0.36),
+                    child: Transform.scale(
+                      scale: 2.25,
+                      child: Container(
+                        height: SizeConfig.screenHeight * 0.56,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(800),
+                            color: Color.fromARGB(255, 245, 162, 54)),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  FractionalTranslation(
+                    translation: Offset(0, 0.575),
+                    child: Transform.scale(
+                      scale: 2.25,
+                      child: SizedBox(
+                        height: SizeConfig.screenHeight * 0.56,
+                        child: FortuneWheel(
+                          selected: selected.stream,
+                          animateFirst: false,
+                          physics: CircularPanPhysics(
+                              duration: Duration(seconds: 1),
+                              curve: Curves.decelerate),
+                          onFling: () {
+                            AudioPlayer().play(
+                              AssetSource('audio/spinner_tone.mp3'),
+                            );
+                            setState(() {
+                              selected.add(Fortune.randomInt(0, items.length));
+                            });
+                          },
+                          indicators: const <FortuneIndicator>[
+                            FortuneIndicator(
+                                alignment: Alignment.centerRight,
+                                child: TriangleIndicator(
+                                  color: Colors.transparent,
+                                ))
+                          ],
+                          items: [
+                            for (int i = 0;
+                                i < items.length;
+                                i++) ...<FortuneItem>{
+                              FortuneItem(
+                                child: Container(
+                                  height: 120,
+                                  width: 120,
+                                  margin: EdgeInsets.only(left: 60),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/' + items[i]),
+                                          fit: BoxFit.cover)),
+                                ),
+                                style: const FortuneItemStyle(
+                                    color: Colors.orangeAccent,
+                                    borderColor: Colors.orangeAccent,
+                                    borderWidth: 3),
+                                onTap: () {
+                                  AudioPlayer().play(
+                                      AssetSource('audio/click_tone.mp3'));
+                                  /*Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MenuFood(nameFoods: items[i])));*/
+                                },
+                              )
+                            }
+                          ],
+                          onAnimationEnd: () {
+                            /*Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MenuFood(
+                                        nameFoods: items[selected.value])));*/
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

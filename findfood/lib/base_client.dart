@@ -1,0 +1,76 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+const String baseUrl = 'http://10.0.2.2:8000/foods';
+
+class BaseClient {
+  var client = http.Client();
+
+  //GET
+  Future<dynamic> get(String api) async {
+    var url = Uri.parse(baseUrl + api);
+    /*var _headers = {
+      'Authorization': 'Bearer sfie328370428387=',
+      'api_key': 'ief873fj38uf38uf83u839898989',
+    };*/
+
+    var response = await client.get(url);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {}
+  }
+
+  Future<dynamic> post(String api, dynamic object) async {
+    var url = Uri.parse(baseUrl + api);
+    var _payload = json.encode(object);
+    /*var _headers = {
+      'Authorization': 'Bearer sfie328370428387=',
+      'Content-Type': 'application/json',
+      'api_key': 'ief873fj38uf38uf83u839898989',
+    };*/
+
+    var response = await client.post(url, body: _payload);
+    if (response.statusCode == 201) {
+      return response.body;
+    } else {
+      //throw exception and catch it in UI
+    }
+  }
+
+  ///PUT Request
+  Future<dynamic> put(String api, dynamic object) async {
+    var url = Uri.parse(baseUrl + api);
+    var _payload = json.encode(object);
+    /*var _headers = {
+      'Authorization': 'Bearer sfie328370428387=',
+      'Content-Type': 'application/json',
+      'api_key': 'ief873fj38uf38uf83u839898989',
+    };*/
+
+    var response = await client.put(url,
+        body: _payload,
+        headers: <String, String>{"Content-Type": "application/json"});
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      //throw exception and catch it in UI
+    }
+  }
+
+  //DELETE
+  Future<dynamic> delete(String api) async {
+    var url = Uri.parse(baseUrl + api);
+    /*var _headers = {
+      'Authorization': 'Bearer sfie328370428387=',
+      'api_key': 'ief873fj38uf38uf83u839898989',
+    };*/
+
+    var response = await client.delete(url);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      //throw exception and catch it in UI
+    }
+  }
+}

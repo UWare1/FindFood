@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/components/map.dart';
+import 'package:findfood/foods.dart';
 import 'package:findfood/misc/colors.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
@@ -8,16 +9,20 @@ import 'package:findfood/widgets/count_and_serve.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:like_button/like_button.dart';
 
 class RestaurantPage extends StatefulWidget {
-  const RestaurantPage({super.key});
+  final Foods foodItem;
+  const RestaurantPage({super.key, required this.foodItem});
 
   @override
-  State<RestaurantPage> createState() => _RestaurantPageState();
+  State<RestaurantPage> createState() => _RestaurantPageState(foodItem);
 }
 
 class _RestaurantPageState extends State<RestaurantPage> {
+  Foods foodItem;
+  _RestaurantPageState(this.foodItem);
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -45,7 +50,8 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   ),
                 ),
                 AppLargeText(
-                  text: "Fried Rice",
+                  text: foodItem.name!,
+                  size: 24,
                   color: Colors.black87,
                 ),
                 GestureDetector(
@@ -64,59 +70,9 @@ class _RestaurantPageState extends State<RestaurantPage> {
           SizedBox(
             height: 20,
           ),
-          Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Enter Search",
-                    border: OutlineInputBorder(),
-                    filled: true,
-                    errorStyle: TextStyle(fontSize: 15),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a search!';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      ;
-                    },
-                    fillColor: AppColors.mainColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'Search',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          //List View
-          /*Container(
-            width: double.maxFinite,
-            height: SizeConfig.screenHeight * 0.86,
+          Expanded(
             child: ListView.builder(
-              itemCount: 6,
+              itemCount: foodItem.restaurants?.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
@@ -128,57 +84,122 @@ class _RestaurantPageState extends State<RestaurantPage> {
                             builder: (context) => const MapRestaurant()));
                   },
                   child: Container(
-                    width: double.maxFinite,
-                    height: 140,
-                    margin: EdgeInsets.only(
-                        top: 0,
-                        left: getProportionateScreenWidth(20),
-                        right: getProportionateScreenWidth(20),
-                        bottom: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.orangeAccent,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(31, 255, 164, 84),
-                          blurRadius: 20,
-                          offset: Offset(4, 8), // Shadow position
-                        ),
-                      ],
-                    ),
+                    margin: EdgeInsets.symmetric(
+                        vertical: getProportionateScreenHeight(20)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/healthy-meat.png"))),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Stack(
+                          alignment: Alignment.centerLeft,
                           children: [
-                            AppLargeText(
-                              text: "Healthy Meat",
-                              size: 20,
-                              color: Colors.white,
-                            ),
-                            //Star in Recommended
                             Container(
-                              width: 200,
-                              height: 20,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: getProportionateScreenWidth(4)),
-                              color: Colors.redAccent,
+                              width: SizeConfig.screenWidth * 0.6,
+                              height: SizeConfig.screenWidth * 0.25,
+                              margin: EdgeInsets.only(
+                                  left: (SizeConfig.screenWidth * 0.3) - 4),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20)),
+                                color: Colors.redAccent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 221, 221, 221),
+                                    blurRadius: 6,
+                                    offset: Offset(3, 6), // Shadow position
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 20),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 3),
+                                      child: AppLargeText(
+                                        text:
+                                            foodItem.restaurants![index].name!,
+                                        size: 22,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    //Star in Recommended
+                                    Container(
+                                      width: 200,
+                                      height: 26,
+                                      margin: EdgeInsets.only(
+                                          top: getProportionateScreenHeight(1),
+                                          bottom:
+                                              getProportionateScreenHeight(4)),
+                                      child: RatingBarIndicator(
+                                        rating: foodItem
+                                            .restaurants![index].rating!,
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        itemCount: 5,
+                                        itemSize: 26,
+                                        direction: Axis.horizontal,
+                                      ),
+                                    ),
+                                    //Count & Serve in Recommended
+                                    Container(
+                                        width: SizeConfig.screenWidth * 0.5,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 4),
+                                              child: Icon(
+                                                Icons.place_rounded,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 24,
+                                              width: 150,
+                                              margin: EdgeInsets.only(top: 2),
+                                              child: SingleChildScrollView(
+                                                child: Text(
+                                                  foodItem.restaurants![index]
+                                                          .address! +
+                                                      "101/98 NEWYORK CITY NAJA DEKD AJARN BOON",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  overflow: TextOverflow.fade,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ),
                             ),
-                            //Count & Serve in Recommended
-                            CountAndServe()
+                            Container(
+                              width: SizeConfig.screenWidth * 0.3,
+                              height: SizeConfig.screenWidth * 0.3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/mountain.jpeg'),
+                                    fit: BoxFit.cover),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 6,
+                                    offset: Offset(3, 6), // Shadow position
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -187,7 +208,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 );
               },
             ),
-          ),*/
+          )
         ],
       ),
     );

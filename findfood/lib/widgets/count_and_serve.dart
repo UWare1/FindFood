@@ -5,7 +5,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class CountAndServe extends StatelessWidget {
-  const CountAndServe({super.key});
+  final int? times;
+  final int? likes;
+  CountAndServe({super.key, this.times, this.likes});
 
   @override
   Widget build(BuildContext context) {
