@@ -7,16 +7,16 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class MapRestaurant extends StatefulWidget {
-  final Foods foodItem;
-  const MapRestaurant({super.key, required this.foodItem});
+  final Restaurant restItem;
+  const MapRestaurant({super.key, required this.restItem});
 
   @override
-  State<MapRestaurant> createState() => _MapRestaurantState(foodItem);
+  State<MapRestaurant> createState() => _MapRestaurantState(restItem);
 }
 
 class _MapRestaurantState extends State<MapRestaurant> {
-  Foods foodItem;
-  _MapRestaurantState(this.foodItem);
+  Restaurant restItem;
+  _MapRestaurantState(this.restItem);
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +66,9 @@ class _MapRestaurantState extends State<MapRestaurant> {
                       color: Colors.grey.withOpacity(0.5)),
                 ),*/
                     AppLargeText(
-                      text: "Shabu Zabb",
+                      text: restItem.name!,
                       color: Colors.black87,
+                      size: 22,
                     ),
                     Icon(
                       Icons.line_weight_rounded,
@@ -77,14 +78,6 @@ class _MapRestaurantState extends State<MapRestaurant> {
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight * 0.4,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-              )
             ],
           ),
         ),

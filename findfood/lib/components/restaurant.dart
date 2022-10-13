@@ -90,7 +90,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MapRestaurant(
-                                    foodItem: foodItem,
+                                    restItem: foodItem.restaurants![index],
                                   )));
                     },
                     onLongPress: () {

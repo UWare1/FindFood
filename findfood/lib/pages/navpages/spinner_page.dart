@@ -132,7 +132,7 @@ class _SpinnerPageState extends State<SpinnerPage>
 
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
-                              return CircularProgressIndicator();
+                              return Center(child: CircularProgressIndicator());
                             default:
                               if (snapshot.hasError) {
                                 return Center(
@@ -156,7 +156,6 @@ class _SpinnerPageState extends State<SpinnerPage>
     var itemRandom = Random();
     int numRandom;
     List<int> item = [];
-    numRandom = itemRandom.nextInt(foodAPI.length);
     for (int i = 0; i <= 6; i++) {
       item.add(i);
       numRandom = itemRandom.nextInt(foodAPI.length);

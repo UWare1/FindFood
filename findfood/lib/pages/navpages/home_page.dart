@@ -161,6 +161,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 color: AppColors.mainColor, radius: 4),
                             tabs: const [
                               Tab(
+                                text: "All",
+                              ),
+                              Tab(
                                 text: "Thai",
                               ),
                               Tab(
@@ -168,9 +171,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                               Tab(
                                 text: "Korea",
-                              ),
-                              Tab(
-                                text: "Italy",
                               ),
                               Tab(
                                 text: "Others",
@@ -554,7 +554,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       width: double.maxFinite,
       height: SizeConfig.screenHeight * 0.3,
       child: ListView.builder(
-        itemCount: foodAPI.length,
+        itemCount: 3,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(

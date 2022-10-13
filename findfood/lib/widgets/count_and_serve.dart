@@ -29,7 +29,7 @@ class CountAndServe extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 5),
                 child: Text(
-                  "30 Min",
+                  "${times} Min",
                   style: TextStyle(color: Colors.white),
                 ),
               )
@@ -51,7 +51,7 @@ class CountAndServe extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 5),
                 child: Text(
-                  "26 Likes",
+                  "${likes} Likes",
                   style: TextStyle(color: Colors.white),
                 ),
               )
