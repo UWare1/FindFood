@@ -153,6 +153,7 @@ class Restaurant {
     this.name,
     this.description,
     this.address,
+    this.image,
     this.rating,
     this.telephone,
     this.latitude,
@@ -163,6 +164,7 @@ class Restaurant {
   String? name;
   String? description;
   String? address;
+  String? image;
   double? rating;
   String? telephone;
   String? latitude;
@@ -173,6 +175,7 @@ class Restaurant {
         name: json["name"],
         description: json["description"],
         address: json["address"],
+        image: json["image"],
         rating: json["rating"].toDouble(),
         telephone: json["telephone"],
         latitude: json["latitude"],
@@ -187,6 +190,7 @@ class Restaurant {
         "name": name,
         "description": description,
         "address": address,
+        "image": image,
         "rating": rating,
         "telephone": telephone,
         "latitude": latitude,

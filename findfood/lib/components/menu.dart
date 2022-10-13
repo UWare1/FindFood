@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:findfood/components/restaurant.dart';
 import 'package:findfood/foods.dart';
+import 'package:findfood/misc/colors.dart';
 import 'package:findfood/pages/empty_page.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:findfood/widgets/app_text.dart';
@@ -65,9 +66,22 @@ class _MenuFood extends State<MenuFood> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppLargeText(
-                    text: foodItem.name!,
-                    color: Colors.black87,
+                  Container(
+                    height: 40,
+                    width: 240,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        foodItem.name!,
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2,
                   ),
                   AppText(text: "${foodItem.country} Category"),
                   SizedBox(
@@ -76,12 +90,7 @@ class _MenuFood extends State<MenuFood> {
                   Container(
                     width: 280,
                     height: 280,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/fried-rice.png"),
-                          fit: BoxFit.scaleDown),
-                    ),
+                    child: Image.network(foodItem.image!),
                   ),
                   SizedBox(
                     height: 30,
@@ -152,13 +161,6 @@ class _MenuFood extends State<MenuFood> {
                                             "assets/images/rice.png"),
                                         fit: BoxFit.scaleDown)),
                               ),
-                              // Text(
-                              //   "27 g'",
-                              //   style: TextStyle(
-                              //       fontSize: 13,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.black54),
-                              // ),
                               AppText(
                                   text:
                                       "${foodItem.nutrients?.carbohydrates} g")
@@ -206,7 +208,7 @@ class _MenuFood extends State<MenuFood> {
                     child: SingleChildScrollView(
                       child: Text(
                         //foodItem.description!
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                        foodItem.description!,
                         overflow: TextOverflow.fade,
                         softWrap: true,
                         strutStyle: StrutStyle(fontSize: 20),
@@ -249,16 +251,22 @@ class _MenuFood extends State<MenuFood> {
                                 margin: const EdgeInsets.only(bottom: 10),
                                 width: 50,
                                 height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/ingredients/basil.png"),
-                                        fit: BoxFit.scaleDown)),
+                                child: Image.network(
+                                    foodItem.ingredients![index].image!),
                               ),
-                              AppText(
-                                text: foodItem.ingredients![index].name!,
-                                color: Colors.white,
+                              Container(
+                                height: 28,
+                                width: double.maxFinite,
+                                child: SingleChildScrollView(
+                                  child: Text(
+                                    foodItem.ingredients![index].name!,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               )
                             ],
                           ),
@@ -284,7 +292,7 @@ class _MenuFood extends State<MenuFood> {
                       height: 40,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
-                          color: Colors.amber),
+                          color: AppColors.mainColor),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:findfood/foods.dart';
 import 'package:findfood/size_config.dart';
 import 'package:findfood/widgets/app_large_text.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +7,17 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class MapRestaurant extends StatefulWidget {
-  const MapRestaurant({super.key});
+  final Foods foodItem;
+  const MapRestaurant({super.key, required this.foodItem});
 
   @override
-  State<MapRestaurant> createState() => _MapRestaurantState();
+  State<MapRestaurant> createState() => _MapRestaurantState(foodItem);
 }
 
 class _MapRestaurantState extends State<MapRestaurant> {
+  Foods foodItem;
+  _MapRestaurantState(this.foodItem);
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

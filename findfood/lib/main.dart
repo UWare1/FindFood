@@ -5,6 +5,7 @@ import 'package:findfood/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'base_client.dart';
 import 'pages/navpages/main_page.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     debugPrint('successful main');
 
     var food = foodsFromJson(response);
-    print(food[0].likes);
+    print(food[0].image);
     for (var val in food) {
       debugPrint("name : ${val.name}, Likes : ${val.likes}");
     }
